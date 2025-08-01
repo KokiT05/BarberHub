@@ -5,25 +5,25 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{3703EDF6-F4C4-4341-8BBE-2FD17FC2E52A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.Web", "BarberHub.Web\BarberHub.Web.csproj", "{7BFF5EC0-BCFD-4467-A303-C8F294B1E361}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{5AEB2F85-8E13-447A-B725-BFBCD83A1655}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D3ADB6CC-C71A-4D1E-9DA0-6DB3E585D354}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.Web.ViewModels", "BarberHub.Web.ViewModels\BarberHub.Web.ViewModels.csproj", "{BED9DA6A-B6C2-449E-A022-8FC5E38B6E46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberHub.Web.ViewModels", "BarberHub.Web.ViewModels\BarberHub.Web.ViewModels.csproj", "{BED9DA6A-B6C2-449E-A022-8FC5E38B6E46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.Data", "BarberHub.Data\BarberHub.Data.csproj", "{FE4A31D7-B2B7-4521-9705-D677BB9EC074}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberHub.Data", "BarberHub.Data\BarberHub.Data.csproj", "{FE4A31D7-B2B7-4521-9705-D677BB9EC074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.Data.Models", "BarberHub.Data.Models\BarberHub.Data.Models.csproj", "{2504C26B-462E-48D2-AB5A-CDCF844ADD5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberHub.Data.Models", "BarberHub.Data.Models\BarberHub.Data.Models.csproj", "{2504C26B-462E-48D2-AB5A-CDCF844ADD5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.Data.Common", "BarberHub.Data.Common\BarberHub.Data.Common.csproj", "{629DE9B6-8200-40C3-B00E-82865D015F7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberHub.Data.Common", "BarberHub.Data.Common\BarberHub.Data.Common.csproj", "{629DE9B6-8200-40C3-B00E-82865D015F7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.GlobalCommon", "BarberHub.GlobalCommon\BarberHub.GlobalCommon.csproj", "{4457695E-6624-4924-B4D5-6D743FC09097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberHub.GlobalCommon", "BarberHub.GlobalCommon\BarberHub.GlobalCommon.csproj", "{4457695E-6624-4924-B4D5-6D743FC09097}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.Services.Core", "BarberHub.Services.Core\BarberHub.Services.Core.csproj", "{17F5F545-EEAB-4D28-ADEC-3D2448C596B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberHub.Services.Core", "BarberHub.Services.Core\BarberHub.Services.Core.csproj", "{17F5F545-EEAB-4D28-ADEC-3D2448C596B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.Services.Common", "BarberHub.Services.Common\BarberHub.Services.Common.csproj", "{F6D72713-D663-414F-8E5E-AF2ABFB14A96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberHub.Services.Common", "BarberHub.Services.Common\BarberHub.Services.Common.csproj", "{F6D72713-D663-414F-8E5E-AF2ABFB14A96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberHub.Web", "BarberHub.Web\BarberHub.Web.csproj", "{79F49A87-6686-4558-9E7E-1B848A323175}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7BFF5EC0-BCFD-4467-A303-C8F294B1E361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BFF5EC0-BCFD-4467-A303-C8F294B1E361}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BFF5EC0-BCFD-4467-A303-C8F294B1E361}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BFF5EC0-BCFD-4467-A303-C8F294B1E361}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BED9DA6A-B6C2-449E-A022-8FC5E38B6E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BED9DA6A-B6C2-449E-A022-8FC5E38B6E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BED9DA6A-B6C2-449E-A022-8FC5E38B6E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,18 +59,22 @@ Global
 		{F6D72713-D663-414F-8E5E-AF2ABFB14A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6D72713-D663-414F-8E5E-AF2ABFB14A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6D72713-D663-414F-8E5E-AF2ABFB14A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79F49A87-6686-4558-9E7E-1B848A323175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79F49A87-6686-4558-9E7E-1B848A323175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79F49A87-6686-4558-9E7E-1B848A323175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79F49A87-6686-4558-9E7E-1B848A323175}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7BFF5EC0-BCFD-4467-A303-C8F294B1E361} = {3703EDF6-F4C4-4341-8BBE-2FD17FC2E52A}
 		{BED9DA6A-B6C2-449E-A022-8FC5E38B6E46} = {3703EDF6-F4C4-4341-8BBE-2FD17FC2E52A}
 		{FE4A31D7-B2B7-4521-9705-D677BB9EC074} = {5AEB2F85-8E13-447A-B725-BFBCD83A1655}
 		{2504C26B-462E-48D2-AB5A-CDCF844ADD5B} = {5AEB2F85-8E13-447A-B725-BFBCD83A1655}
 		{629DE9B6-8200-40C3-B00E-82865D015F7E} = {5AEB2F85-8E13-447A-B725-BFBCD83A1655}
 		{17F5F545-EEAB-4D28-ADEC-3D2448C596B0} = {D3ADB6CC-C71A-4D1E-9DA0-6DB3E585D354}
 		{F6D72713-D663-414F-8E5E-AF2ABFB14A96} = {D3ADB6CC-C71A-4D1E-9DA0-6DB3E585D354}
+		{79F49A87-6686-4558-9E7E-1B848A323175} = {3703EDF6-F4C4-4341-8BBE-2FD17FC2E52A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E52317F-999A-44FC-8ADB-5ABB7A1C46BE}
