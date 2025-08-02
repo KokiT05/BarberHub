@@ -18,8 +18,13 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Configuration\" />
     <Folder Include="NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BarberHub.Data.Common\BarberHub.Data.Common.csproj" />
+    <ProjectReference Include="..\BarberHub.Data.Models\BarberHub.Data.Models.csproj" />
+    <ProjectReference Include="..\BarberHub.GlobalCommon\BarberHub.GlobalCommon.csproj" />
   </ItemGroup>
 
 </Project>
