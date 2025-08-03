@@ -54,7 +54,6 @@ namespace BarberHub.Data.Common
             /// Barbershop Address should be able to store text with length up to 100 characters.
             /// </summary>
             public const int AddressMaxLength = 100;
-
         }
     }
 }

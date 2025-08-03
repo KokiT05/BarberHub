@@ -1,0 +1,53 @@
+﻿@using BarberHub.Web.ViewModels.Barbershop
+@model IEnumerable<AllBarbershopsIndexViewModel>
+
+@{
+    ViewData["Title"] = "All barbershops";
+}
+
+<div class="container py-4">
+    <h1 class="text-center mb-5 text-warning">Нашите бръснарници</h1>
+    <hr class="bg-warning mb-5" style="height: 3px;">
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center" role="alert">
+            Няма добавени бръснарници.
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var barbershop in Model)
+            {
+                <div class="col mb-4">
+                    <div class="card h-100 shadow-sm border-0 barbershop-card">
+                        <img src="@barbershop.ImageUrl" class="card-img-top barbershop-img" alt="Снимка на @barbershop.Name">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-dark">@barbershop.Name</h5>
+                            @if (!string.IsNullOrEmpty(barbershop.Description))
+                            {
+                                <p class="card-text text-muted flex-grow-1">
+                                    @(barbershop.Description.Length > 100 ? barbershop.Description.Substring(0, 100) + "..." : barbershop.Description)
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="card-text text-muted flex-grow-1">Няма налично описание.</p>
+                            }
+                            <div class="mt-auto">
+                                    <p class="card-text mb-1"><small class="text-secondary"><i class="far fa-clock mr-1"></i> Работно време: @barbershop.OpenTime - @barbershop.CloseTime</small></p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <a asp-controller="Barbershops" asp-action="Details" asp-route-id="@barbershop.Id" class="btn btn-outline-warning btn-sm">Виж повече</a>
+                                    @* Тук може да добавите бутони за редакция/изтриване, ако потребителят е администратор *@
+                                    @* <a asp-controller="Barbershops" asp-action="Edit" asp-route-id="@barbershop.Id" class="btn btn-sm btn-info ml-2">Редактирай</a> *@
+                                    @* <a asp-controller="Barbershops" asp-action="Delete" asp-route-id="@barbershop.Id" class="btn btn-sm btn-danger ml-2">Изтрий</a> *@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

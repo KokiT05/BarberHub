@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BarberHub.Data\BarberHub.Data.csproj" />
+    <ProjectReference Include="..\BarberHub.Services.Core\BarberHub.Services.Core.csproj" />
   </ItemGroup>
 
 </Project>

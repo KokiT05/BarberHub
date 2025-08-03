@@ -1,0 +1,40 @@
+﻿
+    .barbershop-card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        background-color: #f8f9fa; /* Светъл фон за картата */
+    }
+
+    .barbershop-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .barbershop-img {
+        height: 250px; /* Фиксирана височина на снимките */
+        object-fit: cover; /* Запазва пропорциите и запълва */
+    }
+
+    .card-title {
+        color: #343a40; /* Тъмен цвят за заглавието на картата */
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+    }
+
+    .card-text {
+        color: #6c757d; /* По-тъмен сив текст за описанието */
+    }
+
+    .btn-outline-warning {
+        color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-outline-warning:hover {
+            color: #212529; /* Тъмен текст при ховър */
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+    /* Стилове за контейнера на страницата, ако е необходим центриран или с отстъпи */
+    .container {
+        max-width: 1200px; /* Ограничаване на ширината на съдържанието */
+    }
