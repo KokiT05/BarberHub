@@ -21,7 +21,7 @@
     }
 
     .card-text {
-        color: #6c757d; /* По-тъмен сив текст за описанието */
+        color: #6c757d;
     }
 
     .btn-outline-warning {
@@ -30,11 +30,10 @@
     }
 
         .btn-outline-warning:hover {
-            color: #212529; /* Тъмен текст при ховър */
+            color: #212529;
             background-color: #ffc107;
             border-color: #ffc107;
         }
-    /* Стилове за контейнера на страницата, ако е необходим центриран или с отстъпи */
     .container {
-        max-width: 1200px; /* Ограничаване на ширината на съдържанието */
+        max-width: 1200px;
     }

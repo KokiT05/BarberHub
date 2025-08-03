@@ -28,7 +28,7 @@
                             @if (!string.IsNullOrEmpty(barbershop.Description))
                             {
                                 <p class="card-text text-muted flex-grow-1">
-                                    @(barbershop.Description.Length > 100 ? barbershop.Description.Substring(0, 100) + "..." : barbershop.Description)
+                                    @barbershop.Description ...
                                 </p>
                             }
                             else
@@ -36,9 +36,11 @@
                                 <p class="card-text text-muted flex-grow-1">Няма налично описание.</p>
                             }
                             <div class="mt-auto">
+                                <p class="card-text mb-1"><small class="text-secondary">Град: @barbershop.City, @barbershop.Address</small></p>
+                                <p class="card-text mb-1"><small class="text-secondary">Телефон: @barbershop.PhoneNumber</small></p>
                                     <p class="card-text mb-1"><small class="text-secondary"><i class="far fa-clock mr-1"></i> Работно време: @barbershop.OpenTime - @barbershop.CloseTime</small></p>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <a asp-controller="Barbershops" asp-action="Details" asp-route-id="@barbershop.Id" class="btn btn-outline-warning btn-sm">Виж повече</a>
+                                    <a asp-controller="Barbershop" asp-action="Details" asp-route-id="@barbershop.Id" class="btn btn-outline-warning btn-sm">Виж повече</a>
                                     @* Тук може да добавите бутони за редакция/изтриване, ако потребителят е администратор *@
                                     @* <a asp-controller="Barbershops" asp-action="Edit" asp-route-id="@barbershop.Id" class="btn btn-sm btn-info ml-2">Редактирай</a> *@
                                     @* <a asp-controller="Barbershops" asp-action="Delete" asp-route-id="@barbershop.Id" class="btn btn-sm btn-danger ml-2">Изтрий</a> *@

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BarberHub.Web.ViewModels.Barbershop
 {
-    public class AllBarbershopsIndexViewModel
+    public class DetailsBarbershopViewModel
     {
         public string Id { get; set; } = null!;
 
@@ -15,11 +15,12 @@ namespace BarberHub.Web.ViewModels.Barbershop
         public string? Description { get; set; }
 
         public string? PhoneNumber { get; set; }
+
         public string? ImageUrl { get; set; }
 
         public string City { get; set; } = null!;
 
-        public string Address {  get; set; } = null!;
+        public string Address { get; set; } = null!;
 
         public string? OpenTime { get; set; }
 

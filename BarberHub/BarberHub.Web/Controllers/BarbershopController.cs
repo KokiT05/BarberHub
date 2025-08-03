@@ -13,12 +13,34 @@ namespace BarberHub.Web.Controllers
             this.barbershopService = barbershopService;
         }
 
-        public async Task<IActionResult> All ()
+        public async Task<IActionResult> All()
         {
             IEnumerable<AllBarbershopsIndexViewModel> barbershops = 
-                                                await this.barbershopService.GetAllBarbershops();
+                                                await this.barbershopService.GetAllBarbershopsAsync();
 
             return this.View(barbershops);
+        }
+
+        public async Task<IActionResult> Details(string? id)
+        {
+            try
+            {
+                DetailsBarbershopViewModel? detailsBarbershop =
+                            await this.barbershopService.GetDetailsBarbershopAsync(id);
+
+                if (detailsBarbershop == null)
+                {
+                    return this.RedirectToAction(nameof(All));
+                }
+
+                return this.View(detailsBarbershop);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                
+                return this.RedirectToAction(nameof(All));
+            }
         }
     }
 }

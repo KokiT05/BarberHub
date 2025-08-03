@@ -31,6 +31,11 @@ namespace BarberHub.Data.Common
             public const int DescriptionMaxLength = 1000;
 
             /// <summary>
+            /// Barbershop allowed min and max length for phone number
+            /// </summary>
+            public const int PhoneNumberMaxAndMinLength = 10;
+
+            /// <summary>
             /// Maximum allowed length for image URL.
             /// </summary>
             public const int ImageUrlMaxLength = 2048;

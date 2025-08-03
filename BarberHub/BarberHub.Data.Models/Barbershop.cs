@@ -15,6 +15,9 @@ namespace BarberHub.Data.Models
         [Comment("Barbershop Description")]
         public string? Description { get; set; }
 
+        [Comment("Barbershop Phone number")]
+        public string? PhoneNumber { get; set; }
+
         [Comment("Barbershop image url")]
         public string? ImageUrl { get; set; }
 

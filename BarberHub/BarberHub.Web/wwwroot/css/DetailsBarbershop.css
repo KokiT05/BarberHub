@@ -1,0 +1,67 @@
+﻿.barbershop-details-image-container {
+    position: relative;
+    width: 100%;
+    height: 450px; /* Фиксирана височина на контейнера за снимката */
+    overflow: hidden; /* Скрива излишъка, ако снимката е по-голяма */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #212529; /* Тъмен фон, ако няма снимка или тя е прозрачна */
+}
+
+.barbershop-details-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Гарантира, че снимката ще покрие целия контейнер */
+    filter: brightness(60%); /* Затъмнява снимката леко, за да се вижда по-добре текстът */
+}
+
+.image-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+.barbershop-details-card {
+    background-color: #f8f9fa; /* Светъл фон за картата с детайли */
+    color: #343a40; /* Тъмен текст в картата */
+    border-radius: .75rem; /* Заоблени ъгли на картата */
+}
+
+.card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.text-dark {
+    color: #343a40 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+    .btn-outline-secondary:hover {
+        color: #f8f9fa;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #e0a800;
+        color: #212529;
+    }

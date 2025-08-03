@@ -1,0 +1,75 @@
+﻿@model BarberHub.Web.ViewModels.Barbershop.DetailsBarbershopViewModel
+
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<div class="container-fluid p-0">
+    @* Снимка на бръснарницата - голяма и обхващаща почти цялата ширина *@
+    <div class="barbershop-details-image-container mb-4">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" class="img-fluid barbershop-details-img" alt="Снимка на @Model.Name">
+        }
+        else
+        {
+            <img src="/images/no-image.jpg" class="img-fluid barbershop-details-img" alt="Без снимка">
+        }
+        <div class="image-overlay">
+            <h1 class="display-4 text-white text-center">@Model.Name</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-lg border-0 barbershop-details-card">
+                <div class="card-body">
+                    <h2 class="card-title text-warning mb-4"><i class="fas fa-info-circle mr-2"></i> Детайли за бръснарницата</h2>
+
+                    <div class="mb-3">
+                        <h4 class="text-dark">Описание:</h4>
+                        <p class="text-muted">@(string.IsNullOrEmpty(Model.Description) ? "Няма налично описание." : Model.Description)</p>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h4 class="text-dark"><i class="fas fa-city mr-2"></i> Град:</h4>
+                            <p class="text-muted">@Model.City</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="text-dark"><i class="fas fa-map-marker-alt mr-2"></i> Адрес:</h4>
+                            <p class="text-muted">@Model.Address</p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h4 class="text-dark"><i class="far fa-clock mr-2"></i> Работно време:</h4>
+                            <p class="text-muted">
+                                @Model.OpenTime - @Model.CloseTime
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="text-dark"><i class="far fa-clock mr-2"></i>Телефон:</h4>
+                            <p class="text-muted">
+                                @Model.PhoneNumber
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <a asp-controller="Barbershop" asp-action="All" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left mr-2"></i> Обратно към всички бръснарници
+                        </a>
+                        @* Можете да добавите бутони за резервации или други действия тук *@
+                        @* <a asp-controller="Appointments" asp-action="Book" asp-route-barbershopId="@Model.Id" class="btn btn-warning ml-2">Запази час</a> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

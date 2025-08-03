@@ -1,4 +1,5 @@
-﻿using BarberHub.Data.Models.Interfaces;
+﻿using BarberHub.Data.Models;
+using BarberHub.Data.Models.Interfaces;
 using BarberHub.Web.Data;
 using BarberHub.Web.ViewModels.Barbershop;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,7 @@ namespace BarberHub.Services.Core
         {
             this.applicationDbContext = applicationDbContext;
         }
-        public async Task<IEnumerable<AllBarbershopsIndexViewModel>> GetAllBarbershops()
+        public async Task<IEnumerable<AllBarbershopsIndexViewModel>> GetAllBarbershopsAsync()
         {
             List<AllBarbershopsIndexViewModel> allBarbershops =
                                             await this.applicationDbContext.Barbershops
@@ -27,9 +28,12 @@ namespace BarberHub.Services.Core
                                             {
                                                 Id = b.Id.ToString(),
                                                 Name = b.Name,
-                                                Description = b.Description,
+                                                Description = b.Description.Substring(0, 25),
+                                                PhoneNumber = b.PhoneNumber,
                                                 // TODO: Make this work with my no-image.jpg
                                                 ImageUrl = b.ImageUrl ?? $"https://as1.ftcdn.net/v2/jpg/02/05/49/82/1000_F_205498258_AfQmtyR5kO5llwKd6fWRRxcc4xRUbQcb.jpg",
+                                                City = b.City,
+                                                Address = b.Address,
                                                 OpenTime = b.OpenTime.Value.ToString("HH:mm") ?? NoWorkTime,
                                                 CloseTime = b.CloseTime.Value.ToString("HH:mm") ?? NoWorkTime,
                                             })
@@ -37,6 +41,34 @@ namespace BarberHub.Services.Core
 
             return allBarbershops;
 
+        }
+
+        public async Task<DetailsBarbershopViewModel?> GetDetailsBarbershopAsync(string? id)
+        {
+            DetailsBarbershopViewModel? barbershop = null;
+
+            bool isValidId = Guid.TryParse(id, out Guid barbershopId);
+            if (isValidId)
+            {
+                barbershop = await this.applicationDbContext
+                                        .Barbershops
+                                        .Where(b => b.Id.ToString() == id)
+                                        .Select(b => new DetailsBarbershopViewModel()
+                                        {
+                                            Id = b.Id.ToString(),
+                                            Name = b.Name,
+                                            Description = b.Description,
+                                            PhoneNumber = b.PhoneNumber,
+                                            ImageUrl = b.ImageUrl ?? "https://as1.ftcdn.net/v2/jpg/02/05/49/82/1000_F_205498258_AfQmtyR5kO5llwKd6fWRRxcc4xRUbQcb.jpg",
+                                            City = b.City,
+                                            Address = b.Address,
+                                            OpenTime = b.OpenTime.Value.ToString("HH:mm") ?? NoWorkTime,
+                                            CloseTime = b.CloseTime.Value.ToString("HH:mm") ?? NoWorkTime
+                                        })
+                                        .SingleOrDefaultAsync();
+            }
+
+            return barbershop;
         }
     }
 }
