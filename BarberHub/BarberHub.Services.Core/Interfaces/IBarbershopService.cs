@@ -7,5 +7,7 @@ namespace BarberHub.Data.Models.Interfaces
         Task<IEnumerable<AllBarbershopsIndexViewModel>> GetAllBarbershopsAsync();
 
         Task<DetailsBarbershopViewModel?> GetDetailsBarbershopAsync(string? id);
+
+        Task CreateBarbershopAsync(FormBarbershopViewModel inputBarbershopModel);
     }
 }

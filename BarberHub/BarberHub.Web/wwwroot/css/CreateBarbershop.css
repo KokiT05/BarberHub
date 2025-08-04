@@ -1,0 +1,23 @@
+﻿.barbershop-form-card {
+    background-color: #f8f9fa;
+    color: #343a40;
+    border-radius: .75rem;
+}
+
+.card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.form-control {
+    border-color: #ced4da;
+}
+
+    .form-control:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    }
+
+.text-danger {
+    font-size: 0.875em;
+}

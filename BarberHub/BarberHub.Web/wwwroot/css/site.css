@@ -21,28 +21,27 @@ body {
   margin-bottom: 60px;
 }*/
 
-/* Общи стилове на тялото */
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #343a40; /* Тъмно сив фон */
-    color: #f8f9fa; /* Светъл текст за контраст */
+    background-color: #343a40; 
+    color: #f8f9fa; 
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Персонализиран цвят за навигационната лента (RGB: 243, 227, 195) */
+
 .navbar {
-    background-color: rgb(243, 227, 195) !important; /* Навигационна лента в желания цвят */
-    border-bottom: 3px solid #6c757d; /* По-тъмен сив бордер под навигацията */
+    background-color: rgb(243, 227, 195) !important; 
+    border-bottom: 3px solid #6c757d; 
 }
 
-/* Цвят на логото и връзките в навигацията */
+
 .navbar-brand,
 .navbar-nav .nav-link {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    color: #343a40 !important; /* Тъмен текст за контраст върху светлия фон на навигацията */
+    color: #343a40 !important; 
 }
 
 .navbar-brand {
@@ -57,24 +56,21 @@ body {
 }
 
     .navbar-nav .nav-link:hover {
-        color: #000000 !important; /* Черен цвят при ховър за по-силен контраст */
+        color: #000000 !important;
     }
 
-/* Основно съдържание */
 main {
     flex: 1;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
-/* Футър */
 .footer {
-    background-color: #212529 !important; /* По-тъмен сив фон за футъра */
-    color: #adb5bd !important; /* По-светъл сив текст за футъра */
+    background-color: #212529 !important; 
+    color: #adb5bd !important; 
     padding: 15px 0;
 }
 
-/* Ако използвате `container-fluid`, може да искате да центрирате съдържанието */
 .container-fluid {
-    max-width: 100%; /* Или фиксирана ширина, ако предпочитате */
+    max-width: 100%;
 }

@@ -63,6 +63,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/AllBarbershops.css">
     <link rel="stylesheet" href="~/css/DetailsBarbershop.css">
+    <link rel="stylesheet" href="~/css/CreateBarbershop.css">
 </head>
 <body>
     <header>
@@ -79,16 +80,13 @@
                     <partial name="_LoginPartial" class="ml-auto" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Barbershop" asp-action="All">Бръснарници</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Services" asp-action="All">Услуги</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Barbershop" asp-action="Create">Добави Бръснарница</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Поверителност</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Services" asp-action="All">Услуги</a>
                         </li>
                         @* Тук може да добавите Link за логин/регистрация или за профил на потребителя *@
                     </ul>

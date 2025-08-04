@@ -1,7 +1,7 @@
 ﻿
     .barbershop-card {
         transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        background-color: #f8f9fa; /* Светъл фон за картата */
+        background-color: #f8f9fa;
     }
 
     .barbershop-card:hover {

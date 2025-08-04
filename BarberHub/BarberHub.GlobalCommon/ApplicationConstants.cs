@@ -10,5 +10,7 @@ namespace BarberHub.GlobalCommon
     {
         public const string NoImageUrl = "no-image.jpg";
         public const string NoWorkTime = "No working time";
+
+        public const string WorkTimeFormat = "HH:mm";
     }
 }
