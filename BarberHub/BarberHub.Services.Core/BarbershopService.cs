@@ -73,6 +73,35 @@ namespace BarberHub.Services.Core
             return barbershop;
         }
 
+        public async Task<EditBarbershopViewModel?> GetEditDetailsBarbershopAsync(string? id)
+        {
+            EditBarbershopViewModel? editBarbershopViewModel = null;
+
+            bool isValidGuid = Guid.TryParse(id, out Guid validId);
+            if (isValidGuid)
+            {
+                editBarbershopViewModel = await this.applicationDbContext.Barbershops
+                                                .AsNoTracking()
+                                                .Where(b => b.Id.ToString() == id)
+                                                .Select(b => new EditBarbershopViewModel()
+                                                {
+                                                    Id = id,
+                                                    Name = b.Name,
+                                                    Description = b.Description,
+                                                    PhoneNumber = b.PhoneNumber,
+                                                    ImageUrl = b.ImageUrl,
+                                                    City = b.City,
+                                                    Address = b.Address,
+                                                    OpenTime = b.OpenTime.Value.ToString(WorkTimeFormat) ?? NoWorkTime,
+                                                    CloseTime = b.CloseTime.Value.ToString(WorkTimeFormat) ?? NoWorkTime,
+
+                                                })
+                                                .SingleOrDefaultAsync();
+            }
+
+            return editBarbershopViewModel;
+        }
+
         public async Task CreateBarbershopAsync(FormBarbershopViewModel inputBarbershopModel)
         {
             Barbershop barbershop = new Barbershop()
@@ -89,6 +118,36 @@ namespace BarberHub.Services.Core
 
             await this.applicationDbContext.AddAsync(barbershop);
             await this.applicationDbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> EditBarbershopAsync(EditBarbershopViewModel editBarbershopViewModel)
+        {
+            bool isValidId = Guid.TryParse(editBarbershopViewModel.Id, out Guid validId);
+            if (!isValidId)
+            {
+                return false;
+            }
+
+            Barbershop? barbershop =
+                    await this.applicationDbContext.Barbershops.FindAsync(validId);
+
+            if (barbershop == null)
+            {
+                return false;
+            }
+
+            barbershop.Name = editBarbershopViewModel.Name;
+            barbershop.Description = editBarbershopViewModel.Description;
+            barbershop.PhoneNumber = editBarbershopViewModel.PhoneNumber;
+            barbershop.ImageUrl = editBarbershopViewModel.ImageUrl;
+            barbershop.City = editBarbershopViewModel.City;
+            barbershop.Address = editBarbershopViewModel.Address;
+            barbershop.OpenTime = TimeOnly.ParseExact(editBarbershopViewModel.OpenTime, WorkTimeFormat);
+            barbershop.CloseTime = TimeOnly.ParseExact(editBarbershopViewModel.CloseTime, WorkTimeFormat);
+
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }

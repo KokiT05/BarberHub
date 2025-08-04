@@ -1,0 +1,123 @@
+﻿@model BarberHub.Web.ViewModels.Barbershop.EditBarbershopViewModel
+
+@{
+    ViewData["Title"] = $"Edit {Model.Name}";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-lg border-0 barbershop-form-card">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="card-title text-center text-warning mb-4"><i class="fas fa-edit mr-2"></i> Редактирай бръснарница: @Model.Name</h2>
+                    <hr class="mb-4 bg-warning">
+
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @TempData["SuccessMessage"]
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Възникнаха грешки:</strong>
+                            <ul>
+                                @foreach (var modelState in ViewData.ModelState.Values)
+                                {
+                                    @foreach (var error in modelState.Errors)
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                }
+                            </ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+
+                    <form asp-controller="Barbershop" asp-action="Edit" method="post">
+                        @* Скрит Input за Id, за да се предаде обратно при POST заявката *@
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ImageUrl"></label>
+                            <input asp-for="ImageUrl" class="form-control">
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="PhoneNumber"></label>
+                            <input asp-for="PhoneNumber" class="form-control">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="City"></label>
+                                    <input asp-for="City" class="form-control">
+                                    <span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Address"></label>
+                                    <input asp-for="Address" class="form-control">
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="OpenTime"></label>
+                                    <input asp-for="OpenTime" class="form-control">
+                                    <span asp-validation-for="OpenTime" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="CloseTime"></label>
+                                    <input asp-for="CloseTime" class="form-control">
+                                    <span asp-validation-for="CloseTime" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-warning btn-lg mr-3">
+                                <i class="fas fa-save mr-2"></i> Запази промените
+                            </button>
+                            <a asp-controller="Barbershop" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-times-circle mr-2"></i> Отмени
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

@@ -47,6 +47,58 @@ namespace BarberHub.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Edit(string? id)
+        {
+            try
+            {
+                EditBarbershopViewModel? editBarbershop =
+                                    await this.barbershopService.GetEditDetailsBarbershopAsync(id);
+
+                if (editBarbershop == null)
+                {
+                    return this.RedirectToAction(nameof(All));
+                }
+
+                return this.View(editBarbershop);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+
+                return this.RedirectToAction(nameof(All));
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditBarbershopViewModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
+            try
+            {
+                bool isEditSuccessfully = await this.barbershopService.EditBarbershopAsync(inputModel);
+
+                if (!isEditSuccessfully)
+                {
+                    return this.RedirectToAction(nameof(All));
+                }
+
+                return this.RedirectToAction(nameof(Details), new { id = inputModel.Id });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return this.RedirectToAction(nameof(All));
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return this.View();

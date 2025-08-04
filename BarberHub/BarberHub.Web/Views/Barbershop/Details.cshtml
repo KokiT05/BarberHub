@@ -5,7 +5,6 @@
 }
 
 <div class="container-fluid p-0">
-    @* Снимка на бръснарницата - голяма и обхващаща почти цялата ширина *@
     <div class="barbershop-details-image-container mb-4">
         @if (!string.IsNullOrEmpty(Model.ImageUrl))
         {
@@ -65,7 +64,10 @@
                         <a asp-controller="Barbershop" asp-action="All" class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-left mr-2"></i> Обратно към всички бръснарници
                         </a>
-                        @* Можете да добавите бутони за резервации или други действия тук *@
+                        <a asp-controller="Barbershop" asp-action="Edit" asp-route-id="@Model.Id" 
+                            class="btn btn-outline-secondary">
+                            <i class="fas fa-edit mr-2">Направи промени</i>
+                        </a>
                         @* <a asp-controller="Appointments" asp-action="Book" asp-route-barbershopId="@Model.Id" class="btn btn-warning ml-2">Запази час</a> *@
                     </div>
                 </div>

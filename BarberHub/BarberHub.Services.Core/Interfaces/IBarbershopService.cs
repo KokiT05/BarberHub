@@ -8,6 +8,12 @@ namespace BarberHub.Data.Models.Interfaces
 
         Task<DetailsBarbershopViewModel?> GetDetailsBarbershopAsync(string? id);
 
+        Task<EditBarbershopViewModel?> GetEditDetailsBarbershopAsync(string? id);
+
+        Task<bool> EditBarbershopAsync(EditBarbershopViewModel editBarbershopViewModel);
+
         Task CreateBarbershopAsync(FormBarbershopViewModel inputBarbershopModel);
+
+
     }
 }
