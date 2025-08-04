@@ -1,0 +1,36 @@
+﻿@model BarberHub.Web.ViewModels.Barbershop.DeleteBarbershopViewModel
+
+@{
+    ViewData["Title"] = $"Изтриване на {Model.Name}";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-danger barbershop-delete-card">
+                <div class="card-body p-4 p-md-5 text-center">
+                    <h2 class="card-title text-danger mb-4"><i class="fas fa-exclamation-triangle mr-2"></i> Потвърдете изтриването</h2>
+                    <hr class="mb-4 bg-danger">
+
+                    <p class="lead mb-4">Наистина ли искате да изтриете бръснарницата:</p>
+                    <h3 class="text-warning mb-4">"@Model.Name"?</h3>
+                    <img src="@Model.ImageUrl" class="img-fluid rounded mb-4" alt="Снимка на @Model.Name" style="max-height: 250px; object-fit: cover;">
+
+                    <div class="alert alert-warning mb-4" role="alert">
+                        <strong>Внимание!</strong> Тази операция е необратима. Всички данни, свързани с тази бръснарница, ще бъдат премахнати или маркирани като неактивни.
+                    </div>
+
+                    <form asp-controller="Barbershop" asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <button type="submit" class="btn btn-danger btn-lg mr-3">
+                            <i class="fas fa-trash-alt mr-2"></i> Да, изтрий
+                        </button>
+                        <a asp-controller="Barbershops" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-times mr-2"></i> Отмени
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

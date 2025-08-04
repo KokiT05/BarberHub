@@ -14,6 +14,12 @@ namespace BarberHub.Data.Models.Interfaces
 
         Task CreateBarbershopAsync(FormBarbershopViewModel inputBarbershopModel);
 
+        Task<DeleteBarbershopViewModel?> GetDeleteBarbershopAsync(string? id);
+
+        Task<bool> SoftDeleteAsync(string? id);
+
+        Task<bool> HardDeleteAsync(string? id);
+
 
     }
 }

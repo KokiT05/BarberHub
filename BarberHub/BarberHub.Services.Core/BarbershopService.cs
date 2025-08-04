@@ -2,6 +2,7 @@
 using BarberHub.Data.Models.Interfaces;
 using BarberHub.Web.Data;
 using BarberHub.Web.ViewModels.Barbershop;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -122,14 +123,9 @@ namespace BarberHub.Services.Core
 
         public async Task<bool> EditBarbershopAsync(EditBarbershopViewModel editBarbershopViewModel)
         {
-            bool isValidId = Guid.TryParse(editBarbershopViewModel.Id, out Guid validId);
-            if (!isValidId)
-            {
-                return false;
-            }
 
             Barbershop? barbershop =
-                    await this.applicationDbContext.Barbershops.FindAsync(validId);
+                    await this.FindBarbershopByStringIdAsync(editBarbershopViewModel.Id);
 
             if (barbershop == null)
             {
@@ -149,5 +145,71 @@ namespace BarberHub.Services.Core
 
             return true;
         }
+
+        public async Task<DeleteBarbershopViewModel?> GetDeleteBarbershopAsync(string? id)
+        {
+            DeleteBarbershopViewModel? deleteBarbershop = null;
+
+            Barbershop? barbershop = await this.FindBarbershopByStringIdAsync(id);
+
+            if (deleteBarbershop != null)
+            {
+                deleteBarbershop = new DeleteBarbershopViewModel()
+                {
+                    Id = barbershop.Id.ToString(),
+                    Name = barbershop.Name,
+                    ImageUrl = barbershop.ImageUrl,
+                };
+            }
+
+            return deleteBarbershop;
+        }
+
+        public async Task<bool> SoftDeleteAsync(string? id)
+        {
+            Barbershop? barbershop = await this.FindBarbershopByStringIdAsync(id);
+
+            if (barbershop == null)
+            {
+                return false;
+            }
+
+            barbershop.IsDeleted = true;
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> HardDeleteAsync(string? id)
+        {
+            Barbershop? barbershop = await this.FindBarbershopByStringIdAsync(id);
+
+            if (barbershop == null)
+            {
+                return false;
+            }
+
+            this.applicationDbContext.Barbershops.Remove(barbershop);
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        private async Task<Barbershop?> FindBarbershopByStringIdAsync(string? id)
+        {
+            Barbershop? barbershop = null;
+
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                bool isValidGuid = Guid.TryParse(id, out Guid validId);
+                if (isValidGuid)
+                {
+                    barbershop = await this.applicationDbContext.Barbershops.FindAsync(validId);
+                }
+            }
+
+            return barbershop;
+        }
+
     }
 }

@@ -127,5 +127,19 @@ namespace BarberHub.Web.Controllers
                 return this.RedirectToAction(nameof(All));
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string? id)
+        {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
