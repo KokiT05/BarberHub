@@ -41,6 +41,8 @@ namespace BarberHub.Data.Configuration
 
             model.Property(b => b.IsDeleted).IsRequired().HasDefaultValue(false);
 
+            model.HasQueryFilter(b => b.IsDeleted == false);
+
             model.HasData(this.SeedBarbershops());
         }
 
@@ -53,7 +55,7 @@ namespace BarberHub.Data.Configuration
                     Id = Guid.NewGuid(),
                     Name = "The Brothers",
                     Description = "Just a barbershop",
-                    PhoneNumber = "088 123 4567",
+                    PhoneNumber = "0881234567",
                     ImageUrl = $"~/images/{NoImageUrl}",
                     City = "Sofia",
                     Address = "бул. Ломско шосе",
@@ -66,7 +68,7 @@ namespace BarberHub.Data.Configuration
                     Id = Guid.Parse("a1b2c3d4-e5f6-7890-1234-567890abcdef"),
                     Name = "Barber's Den",
                     Description = "Традиционна бръснарница с модерен привкус.",
-                    PhoneNumber = "088 765 4321",
+                    PhoneNumber = "0887654321",
                     ImageUrl = "https://example.com/barbersden.jpg",
                     City = "София",
                     Address = "ул. Витоша 15",
@@ -79,7 +81,7 @@ namespace BarberHub.Data.Configuration
                     Id = Guid.Parse("f6e5d4c3-b2a1-0987-6543-210fedcba987"),
                     Name = "The Clip Joint",
                     Description = "Място, където стилът среща прецизността.",
-                    PhoneNumber = "088 512 6287",
+                    PhoneNumber = "0885126287",
                     ImageUrl = "https://example.com/clipjoint.png",
                     City = "Пловдив",
                     Address = "бул. Свобода 10",
@@ -92,7 +94,7 @@ namespace BarberHub.Data.Configuration
                     Id = Guid.Parse("1a2b3c4d-5e6f-7890-abcd-ef1234567890"),
                     Name = "Gentlemen's Quarters",
                     Description = "Ексклузивна бръснарница за истински господа.",
-                    PhoneNumber = "088 123 3361",
+                    PhoneNumber = "0881233361",
                     ImageUrl = "https://example.com/gentlemensquarters.webp",
                     City = "Варна",
                     Address = "ул. Княз Борис I 25",

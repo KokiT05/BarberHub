@@ -133,12 +133,38 @@ namespace BarberHub.Web.Controllers
         {
             try
             {
+                DeleteBarbershopViewModel? deleteBarbershop =
+                                            await this.barbershopService.GetDeleteBarbershopAsync(id);
+
+                if (deleteBarbershop == null)
+                {
+                    return this.RedirectToAction(nameof(All));
+                }
+
+                return this.View(deleteBarbershop);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return this.RedirectToAction(nameof(All));
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(DeleteBarbershopViewModel inputModel)
+        {
+            try
+            {
+                bool deleteResult = await this.barbershopService.SoftDeleteAsync(inputModel.Id);
+
+                return this.RedirectToAction(nameof(All));
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
 
-                throw;
+                return this.RedirectToAction(nameof(All));
             }
         }
     }

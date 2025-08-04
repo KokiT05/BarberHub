@@ -152,7 +152,7 @@ namespace BarberHub.Services.Core
 
             Barbershop? barbershop = await this.FindBarbershopByStringIdAsync(id);
 
-            if (deleteBarbershop != null)
+            if (barbershop != null)
             {
                 deleteBarbershop = new DeleteBarbershopViewModel()
                 {

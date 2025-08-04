@@ -68,6 +68,10 @@
                             class="btn btn-outline-secondary">
                             <i class="fas fa-edit mr-2">Направи промени</i>
                         </a>
+                        <a asp-controller="Barbershop" asp-action="Delete" asp-route-id="@Model.Id"
+                           class="btn btn-outline-secondary">
+                            <i class="bi bi-trash mr-2">Премахни</i>
+                        </a>
                         @* <a asp-controller="Appointments" asp-action="Book" asp-route-barbershopId="@Model.Id" class="btn btn-warning ml-2">Запази час</a> *@
                     </div>
                 </div>
