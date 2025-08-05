@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberHub.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250804211358_AddQueryFilter")]
-    partial class AddQueryFilter
+    [Migration("20250805183607_AddOfferModelAndOfferConfiguration")]
+    partial class AddOfferModelAndOfferConfiguration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,7 +89,7 @@ namespace BarberHub.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b77ffead-2b9b-4fa9-9bc9-964e2a7c0c18"),
+                            Id = new Guid("26aee914-41af-47f2-88b2-522e4aa203e4"),
                             Address = "бул. Ломско шосе",
                             City = "Sofia",
                             CloseTime = new TimeOnly(20, 30, 0),
@@ -106,7 +106,7 @@ namespace BarberHub.Data.Migrations
                             Address = "ул. Витоша 15",
                             City = "София",
                             CloseTime = new TimeOnly(18, 0, 0),
-                            Description = "Традиционна бръснарница Offer модерен привкус.",
+                            Description = "Традиционна бръснарница с модерен привкус.",
                             ImageUrl = "https://example.com/barbersden.jpg",
                             IsDeleted = false,
                             Name = "Barber's Den",
@@ -138,6 +138,60 @@ namespace BarberHub.Data.Migrations
                             Name = "Gentlemen's Quarters",
                             OpenTime = new TimeOnly(8, 30, 0),
                             PhoneNumber = "0881233361"
+                        });
+                });
+
+            modelBuilder.Entity("BarberHub.Data.Models.Offer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Offer Identifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)")
+                        .HasComment("Offer Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("Offer Name");
+
+                    b.Property<decimal>("Price")
+                        .HasMaxLength(100)
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Offer Price");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offers", t =>
+                        {
+                            t.HasComment("Offer in the system");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("99242240-c9e9-42ff-8414-8536eb740c84"),
+                            Description = "Минаване с машина за подстригване по цялата глава с един номер",
+                            Name = "Подстригване с един номер",
+                            Price = 5m
+                        },
+                        new
+                        {
+                            Id = new Guid("6582820a-79c5-4ecf-853d-544b64f528ed"),
+                            Description = "Оформяне на вежди",
+                            Name = "Оформяне на вежди",
+                            Price = 2m
+                        },
+                        new
+                        {
+                            Id = new Guid("0d4de42a-f4b0-4e1a-a6ee-9df1ead44ff6"),
+                            Description = "Добре оформена брада с бръснач",
+                            Name = "Оформяне на брада",
+                            Price = 3m
                         });
                 });
 

@@ -17,7 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IBarbershopService, BarbershopService>();
+builder.Services.AddScoped<IBarbershopService, BarberHub.Services.Core.BarbershopService>();
 
 var app = builder.Build();
 

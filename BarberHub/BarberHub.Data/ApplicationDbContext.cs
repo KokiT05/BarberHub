@@ -1,6 +1,7 @@
 ﻿using BarberHub.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Reflection;
 
 namespace BarberHub.Web.Data
@@ -13,6 +14,8 @@ namespace BarberHub.Web.Data
         }
 
         public virtual DbSet<Barbershop> Barbershops { get; set; }
+
+        public virtual DbSet<Offer> Offers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

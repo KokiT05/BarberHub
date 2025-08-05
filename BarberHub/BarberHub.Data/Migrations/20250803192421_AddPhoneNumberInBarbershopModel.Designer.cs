@@ -105,7 +105,7 @@ namespace BarberHub.Data.Migrations
                             Address = "ул. Витоша 15",
                             City = "София",
                             CloseTime = new TimeOnly(18, 0, 0),
-                            Description = "Традиционна бръснарница с модерен привкус.",
+                            Description = "Традиционна бръснарница Offer модерен привкус.",
                             ImageUrl = "https://example.com/barbersden.jpg",
                             IsDeleted = false,
                             Name = "Barber's Den",

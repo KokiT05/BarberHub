@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BarberHub.Data.Configuration
 {
-    using static Common.EntityConstants.Babershop;
+    using static Common.EntityConstants;
+    using static Common.EntityConstants.BarbershopConstants;
     using static ApplicationConstants;
     public class BarbershopConfiguration : IEntityTypeConfiguration<Barbershop>
     {
@@ -46,7 +47,7 @@ namespace BarberHub.Data.Configuration
             model.HasData(this.SeedBarbershops());
         }
 
-        public List<Barbershop> SeedBarbershops()
+        private List<Barbershop> SeedBarbershops()
         {
             List<Barbershop> barbershops = new List<Barbershop>()
             {

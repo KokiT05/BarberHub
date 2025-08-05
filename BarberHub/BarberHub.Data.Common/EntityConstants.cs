@@ -8,27 +8,41 @@ namespace BarberHub.Data.Common
 {
     public class EntityConstants
     {
-        public static class Babershop
+        /// <summary>
+        /// Barbershop Name should be at least 2 characters and up to 100 characters.
+        /// </summary>
+        public const int NameMinLength = 2;
+
+        /// <summary>
+        /// Barbershop Name should be able to store text with length up to 100 characters.
+        /// </summary>
+        public const int NameMaxLength = 100;
+
+        /// <summary>
+        /// Barbershop Description should be at least 2 characters and up to 1000 characters.
+        /// </summary>
+        public const int DescriptionMinLength = 2;
+
+        /// <summary>
+        /// Barbershop Description should be able to store text with length up to 1000 characters.
+        /// </summary>
+        public const int DescriptionMaxLength = 1000;
+
+        public static class OfferConstants
         {
             /// <summary>
-            /// Barbershop Name should be at least 2 characters and up to 100 characters.
+            /// BarberService cannot be less than 0 euros
             /// </summary>
-            public const int NameMinLength = 2;
+            public const int PriceMinValue = 0;
 
             /// <summary>
-            /// Barbershop Name should be able to store text with length up to 100 characters.
+            /// BarberService cannot be more than 100 euros
             /// </summary>
-            public const int NameMaxLength = 100;
+            public const int PriceMaxValue = 100;
+        }
 
-            /// <summary>
-            /// Barbershop Description should be at least 2 characters and up to 1000 characters.
-            /// </summary>
-            public const int DescriptionMinLength = 2;
-
-            /// <summary>
-            /// Barbershop Description should be able to store text with length up to 1000 characters.
-            /// </summary>
-            public const int DescriptionMaxLength = 1000;
+        public static class BarbershopConstants
+        {
 
             /// <summary>
             /// Barbershop allowed min and max length for phone number

@@ -15,6 +15,7 @@ namespace BarberHub.Web.ViewModels.Barbershop
         public string? Description { get; set; }
 
         public string? PhoneNumber { get; set; }
+
         public string? ImageUrl { get; set; }
 
         public string City { get; set; } = null!;

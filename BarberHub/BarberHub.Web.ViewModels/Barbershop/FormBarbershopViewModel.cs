@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace BarberHub.Web.ViewModels.Barbershop
 {
-    using static BarberHub.Data.Common.EntityConstants.Babershop;
+    using static BarberHub.Data.Common.EntityConstants.BarbershopConstants;
+    using static BarberHub.Data.Common.EntityConstants;
     public class FormBarbershopViewModel
     {
         [Required(ErrorMessage = "Barbershop name is required")]
