@@ -40,6 +40,10 @@ namespace BarberHub.Data.Configuration
             model.Property(b => b.OpenTime);
             model.Property(b => b.CloseTime);
 
+            model.HasMany(b => b.Offers)
+                .WithOne(o => o.Barbershop)
+                .HasForeignKey(o => o.BarbershopId);
+
             model.Property(b => b.IsDeleted).IsRequired().HasDefaultValue(false);
 
             model.HasQueryFilter(b => b.IsDeleted == false);
@@ -53,7 +57,7 @@ namespace BarberHub.Data.Configuration
             {
                 new Barbershop()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("9c31e450-0fd6-4aa6-8d05-cd79b87ce656"),
                     Name = "The Brothers",
                     Description = "Just a barbershop",
                     PhoneNumber = "0881234567",

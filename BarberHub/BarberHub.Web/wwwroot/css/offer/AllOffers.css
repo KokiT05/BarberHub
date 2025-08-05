@@ -1,0 +1,42 @@
+﻿.offer-list-group {
+    border-radius: .75rem;
+    overflow: hidden; /* За да спазват border-radius елементите вътре */
+}
+
+.offer-list-item {
+    background-color: #f8f9fa; /* Светъл фон за всеки елемент от списъка */
+    border-left: 5px solid transparent; /* Място за индикация при ховър */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+    .offer-list-item:hover {
+        background-color: #e9ecef; /* По-тъмен фон при ховър */
+        border-left-color: #ffc107; /* Жълт бордер при ховър */
+    }
+
+.offer-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.offer-description {
+    font-size: 0.9em;
+}
+
+.offer-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: .4em .8em !important;
+    border-radius: .5rem;
+}
+/* Скриваме label-а за чекбокса визуално, но го пазим за достъпност */
+.form-check-label.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}

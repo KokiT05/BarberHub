@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BarberHub.Web.ViewModels.Offer.AllOffersViewModel>
+
+@{
+    ViewData["Title"] = "Нашите оферти";
+}
+
+<div class="container py-4">
+    <h1 class="text-center mb-5 text-warning">Избери своите услуги</h1>
+    <hr class="bg-warning mb-5" style="height: 3px;">
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @if (TempData["SelectedOfferCount"] != null)
+    {
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            Избрали сте @TempData["SelectedOfferCount"] оферти. ID-та: @TempData["SelectedOfferIds"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center" role="alert">
+            Все още няма добавени оферти. Очаквайте скоро!
+        </div>
+    }
+    else
+    {
+        <form asp-controller="Offers" asp-action="SelectOffers" method="post" id="offersForm">
+            <ul class="list-group list-group-flush mb-4 shadow-sm offer-list-group">
+                @foreach (var offer in Model)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center offer-list-item py-3">
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="checkbox" name="selectedOfferIds" value="@offer.Id" id="offer-@offer.Id">
+                                <label class="form-check-label sr-only" for="offer-@offer.Id">Избери @offer.Name</label>
+                            </div>
+                            <div>
+                                <h5 class="mb-1 text-dark offer-name">@offer.Name</h5>
+                                @if (!string.IsNullOrEmpty(offer.Description))
+                                {
+                                    <p class="mb-1 text-muted offer-description">
+                                        @(offer.Description.Length > 200 ? offer.Description.Substring(0, 200) + "..." : offer.Description)
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="mb-1 text-muted offer-description">Няма налично описание.</p>
+                                }
+                            </div>
+                        </div>
+                        <div class="text-nowrap ml-3">
+                            <span class="badge bg-warning text-dark p-2 offer-price">
+                                @offer.Price.ToString("F2") лв.
+                            </span>
+                        </div>
+                    </li>
+                }
+            </ul>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-warning btn-lg">
+                    <i class="fas fa-check-circle mr-2"></i> Избери услуги
+                </button>
+                @* Можете да добавите и бутон за отмяна или друг, ако е нужно *@
+                <a href="javascript:void(0);" onclick="document.getElementById('offersForm').reset();" class="btn btn-outline-secondary btn-lg ml-3">
+                    <i class="fas fa-undo-alt mr-2"></i> Изчисти избора
+                </a>
+            </div>
+        </form>
+    }
+</div>

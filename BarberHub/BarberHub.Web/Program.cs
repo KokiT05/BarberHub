@@ -1,6 +1,7 @@
 using BarberHub.Data.Models;
 using BarberHub.Data.Models.Interfaces;
 using BarberHub.Services.Core;
+using BarberHub.Services.Core.Interfaces;
 using BarberHub.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IBarbershopService, BarberHub.Services.Core.BarbershopService>();
+builder.Services.AddScoped<IBarbershopService, BarbershopService>();
+builder.Services.AddScoped<IOfferService, OfferService>();
 
 var app = builder.Build();
 

@@ -26,7 +26,13 @@ namespace BarberHub.Data.Configuration
 
             model.Property(o => o.Price)
                 .IsRequired()
+                .HasPrecision(3, 2)
                 .HasMaxLength(PriceMaxValue);
+
+            model.HasOne(o => o.Barbershop)
+                .WithMany(b => b.Offers)
+                .HasForeignKey(o => o.BarbershopId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             model.HasData(this.SeedOffers());
         }

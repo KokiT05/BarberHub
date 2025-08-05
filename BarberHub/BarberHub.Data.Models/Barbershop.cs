@@ -33,6 +33,8 @@ namespace BarberHub.Data.Models
         [Comment("Barbershop closing time")]
         public TimeOnly? CloseTime { get; set; }
 
+        public virtual ICollection<Offer> Offers { get; set; } = new HashSet<Offer>();
+
         [Comment("Show if barbershop is deleted")]
         public bool IsDeleted { get; set; } = false;
     }

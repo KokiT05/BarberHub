@@ -22,6 +22,8 @@ namespace BarberHub.Data.Models
         [Comment("Offer Price")]
         public decimal Price {  get; set; }
 
+        public Guid BarbershopId { get; set; }
 
+        public virtual Barbershop Barbershop { get; set; } = null!;
     }
 }
