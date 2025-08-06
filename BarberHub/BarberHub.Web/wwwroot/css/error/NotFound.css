@@ -1,0 +1,27 @@
+﻿.not-found-container {
+    padding: 50px 20px;
+    background-color: #fff3cd; /* Light yellow background */
+    border: 1px solid #ffeeba;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.display-1 {
+    font-size: 6em;
+    font-weight: bold;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }

@@ -27,10 +27,10 @@ namespace BarberHub.Web.Controllers
         public async Task<IActionResult> Edit(string? id)
         {
             bool isValidId = Guid.TryParse(id, out Guid validId);
-            if (!isValidId)
+            if (isValidId)
             {
-                // 404 meybe
-                return this.Forbid();
+                // TODO
+                return this.NotFound();
             }
 
             try
@@ -42,9 +42,8 @@ namespace BarberHub.Web.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                
-                // 500 server bad?
-                return this.Forbid();
+
+                return this.NotFound();
             }
         }
 
@@ -65,14 +64,13 @@ namespace BarberHub.Web.Controllers
                     return this.View(inputModel);
                 }
 
-                return this.RedirectToAction(nameof(All));
+                return this.RedirectToAction("Home/Index");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
-                // TODO: Need to return back to all offers
-                return this.RedirectToAction(nameof(All));
+                return this.RedirectToAction("Home/Index");
             }
         }
 
@@ -87,7 +85,7 @@ namespace BarberHub.Web.Controllers
                 return this.View(formOfferViewModel);
             }
 
-            return this.Forbid();
+            return this.NotFound();
         }
 
         [HttpPost]
@@ -120,13 +118,15 @@ namespace BarberHub.Web.Controllers
                 bool isDeleteSuccessfully = await this.offerService
                                                     .DeleteOfferAsync(id);
 
-                return this.RedirectToAction(nameof(All), new { id = "" });
+
+                return this.RedirectToAction("Home/Index");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
-                return this.RedirectToAction(nameof(All), new { id = "" });
+
+                return this.RedirectToAction("Home/Index");
             }
         }
     }

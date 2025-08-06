@@ -1,0 +1,27 @@
+﻿.error-container {
+    padding: 50px 20px;
+    background-color: #f8d7da; /* Light red background */
+    border: 1px solid #f5c6cb;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.display-1 {
+    font-size: 6em;
+    font-weight: bold;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #e0a800;
+    }

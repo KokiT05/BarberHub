@@ -28,5 +28,14 @@ namespace BarberHub.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        // Действие за грешки 404 (Not Found)
+        [HttpGet("/Home/NotFound")] // Уверете се, че пътят съвпада с този в UseStatusCodePagesWithReExecute
+        public IActionResult NotFound(int statusCode) // Приема statusCode от {0} плейсхолдъра
+        {
+            // Можеш да логваш statusCode тук, ако искаш да следиш 404 грешки
+            ViewData["StatusCode"] = statusCode;
+            return View();
+        }
     }
 }

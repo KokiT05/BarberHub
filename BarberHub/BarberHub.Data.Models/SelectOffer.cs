@@ -1,0 +1,30 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BarberHub.Data.Models
+{
+    [Comment("Represents a selected offer by a user")]
+    public class SelectOffer
+    {
+        [Comment("SelectOffer Indentifier")]
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        [Comment("SelectOffer Description")]
+        public string? SelectOfferDescription { get; set; }
+
+        [Comment("SelectOffer TotalPrice")]
+        public decimal TotalPrice { get; set; }
+
+        [Comment("Date and time when the offer was selected")]
+        public DateTime SelectedOn { get; set; }
+
+        [Comment("Foreign key reference to the user")]
+        public string UserId { get; set; } = null!;
+        public virtual IdentityUser User { get; set; } = null!;
+    }
+}
