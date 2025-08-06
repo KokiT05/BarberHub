@@ -23,6 +23,7 @@ namespace BarberHub.Web.Controllers
             return this.View(offers);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(string? id)
         {
@@ -47,6 +48,7 @@ namespace BarberHub.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditOfferViewModel inputModel)
         {
@@ -74,6 +76,7 @@ namespace BarberHub.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Create(string? id)
         {
@@ -88,6 +91,7 @@ namespace BarberHub.Web.Controllers
             return this.NotFound();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(FormOfferViewModel inputModel)
         {
@@ -110,6 +114,7 @@ namespace BarberHub.Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {

@@ -26,6 +26,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 
     })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -61,5 +62,56 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+
+    string[] roleNames = { "Admin", "User" };
+    foreach (var roleName in roleNames)
+    {
+        var roleExist = await roleManager.RoleExistsAsync(roleName);
+        if (!roleExist)
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+
+    
+    string adminUserEmail = "admin@barberhub.com";
+    string adminPassword = "YourStrongAdminPassword1!";
+
+    var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
+    if (adminUser == null)
+    {
+        adminUser = new IdentityUser
+        {
+            UserName = adminUserEmail,
+            Email = adminUserEmail,
+            EmailConfirmed = true
+        };
+        var createUserResult = await userManager.CreateAsync(adminUser, adminPassword);
+        if (createUserResult.Succeeded)
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+            Console.WriteLine($"Admin user '{adminUserEmail}' created and assigned 'Admin' role.");
+        }
+        else
+        {
+            Console.WriteLine($"Error creating admin user: {string.Join(", ", createUserResult.Errors.Select(e => e.Description))}");
+        }
+    }
+    else
+    {
+        
+        if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+            Console.WriteLine($"Admin user '{adminUserEmail}' assigned 'Admin' role.");
+        }
+    }
+}
 
 app.Run();

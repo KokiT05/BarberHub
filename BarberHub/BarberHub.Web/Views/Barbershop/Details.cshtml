@@ -65,22 +65,26 @@
                             class="btn btn-outline-secondary btn-lg mx-2 mb-2">
                             <i class="fas fa-arrow-left mr-2"></i> Обратно към всички бръснарници
                         </a>
-                        <a asp-controller="Offer" asp-action="Create" asp-route-id="@Model.Id"
-                            class="btn btn-primary btn-lg mx-2 mb-2">
-                            <i class="fas fa-plus-circle mr-2"></i> Създай услуга
-                        </a>
                         <a asp-controller="Offer" asp-action="All" asp-route-id="@Model.Id"
                         class="btn btn-warning btn-lg mx-2 mb-2">
                             <i class="fas fa-cut mr-2"></i> Разгледай услуги
                         </a>
-                        <a asp-controller="Barbershop" asp-action="Edit" asp-route-id="@Model.Id" 
-                        class="btn btn-info btn-lg mx-2 mb-2">
-                        <i class="fas fa-pencil-alt mr-2"></i> Редактирай бръснарница
-                        </a>
-                        <a asp-controller="Barbershop" asp-action="Delete" asp-route-id="@Model.Id"
-                        class="btn btn-danger btn-lg mx-2 mb-2">
-                        <i class="fas fa-trash-alt mr-2"></i> Изтрий бръснарница
-                        </a>
+
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="Offer" asp-action="Create" asp-route-id="@Model.Id"
+                               class="btn btn-primary btn-lg mx-2 mb-2">
+                                <i class="fas fa-plus-circle mr-2"></i> Създай услуга
+                            </a>
+                            <a asp-controller="Barbershop" asp-action="Edit" asp-route-id="@Model.Id"
+                               class="btn btn-info btn-lg mx-2 mb-2">
+                                <i class="fas fa-pencil-alt mr-2"></i> Редактирай бръснарница
+                            </a>
+                            <a asp-controller="Barbershop" asp-action="Delete" asp-route-id="@Model.Id"
+                               class="btn btn-danger btn-lg mx-2 mb-2">
+                                <i class="fas fa-trash-alt mr-2"></i> Изтрий бръснарница
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
