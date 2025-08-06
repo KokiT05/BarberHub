@@ -73,7 +73,7 @@
                                 @offer.Price.ToString("F2") лв.
                             </span>
                         </div>
-                        <a asp-controller="Offer" asp-action="Edit" 
+                        <a asp-controller="Offer" asp-action="Edit" asp-route-id="@offer.Id"
                                 class="text-nowrap ml-3">
                             <span class="badge bg-warning text-dark p-2 offer-price">
                                 Направи промени

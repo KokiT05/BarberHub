@@ -19,25 +19,6 @@ namespace BarberHub.Services.Core
             this.applicationDbContext = applicationDbContext;
         }
 
-        public async Task CreateOfferAsync(FormOfferViewModel inputOfferModel, string? barbershopId)
-        {
-            bool isValidBarbershopId =
-                Guid.TryParse(barbershopId, out Guid validBarbershopId);
-            if (isValidBarbershopId)
-            {
-                Offer offer = new Offer()
-                {
-                    Name = inputOfferModel.Name,
-                    Description = inputOfferModel.Description,
-                    Price = inputOfferModel.Price,
-                    BarbershopId = validBarbershopId,
-                };
-
-                await this.applicationDbContext.Offers.AddAsync(offer);
-                await this.applicationDbContext.SaveChangesAsync();
-            }
-        }
-
         public async Task<IEnumerable<AllOffersViewModel>> GetAllOffersAsync(string? barbershopId)
         {
             IEnumerable<AllOffersViewModel> allOffers = new List<AllOffersViewModel>();
@@ -59,6 +40,67 @@ namespace BarberHub.Services.Core
             }
 
             return allOffers;
+        }
+
+        public async Task<EditOfferViewModel?> GetEditDetailsOfferAsync(string? offerId)
+        {
+            EditOfferViewModel? editOfferViewModel = null;
+
+            bool isValidId = Guid.TryParse(offerId, out Guid validId);
+            if (isValidId)
+            {
+                editOfferViewModel = await this.applicationDbContext.Offers
+                                            .AsNoTracking()
+                                            .Where(o => o.Id == validId)
+                                            .Select(o => new EditOfferViewModel()
+                                            {
+                                                Id = validId.ToString(),
+                                                Name = o.Name,
+                                                Description = o.Description,
+                                                Price = o.Price
+                                            })
+                                            .SingleOrDefaultAsync();
+            }
+
+            return editOfferViewModel;
+        }
+
+        public async Task<bool> EditOfferAsync(EditOfferViewModel? offerModel)
+        {
+            Offer? offer = await this.applicationDbContext.Offers
+                                        .SingleOrDefaultAsync(o => o.Id.ToString() == offerModel.Id);
+
+            if (offer == null)
+            {
+                return false;
+            }
+
+            offer.Name = offerModel.Name;
+            offer.Description = offerModel.Description;
+            offer.Price = offerModel.Price;
+
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task CreateOfferAsync(FormOfferViewModel inputOfferModel, string? barbershopId)
+        {
+            bool isValidBarbershopId =
+                Guid.TryParse(barbershopId, out Guid validBarbershopId);
+            if (isValidBarbershopId)
+            {
+                Offer offer = new Offer()
+                {
+                    Name = inputOfferModel.Name,
+                    Description = inputOfferModel.Description,
+                    Price = inputOfferModel.Price,
+                    BarbershopId = validBarbershopId,
+                };
+
+                await this.applicationDbContext.Offers.AddAsync(offer);
+                await this.applicationDbContext.SaveChangesAsync();
+            }
         }
     }
 }

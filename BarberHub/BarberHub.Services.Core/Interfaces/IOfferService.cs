@@ -12,5 +12,9 @@ namespace BarberHub.Services.Core.Interfaces
         Task<IEnumerable<AllOffersViewModel>> GetAllOffersAsync(string? barbershopId);
 
         Task CreateOfferAsync(FormOfferViewModel inputOfferModel, string? barbershopId);
+
+        Task<EditOfferViewModel?> GetEditDetailsOfferAsync(string? offerId);
+
+        Task<bool> EditOfferAsync(EditOfferViewModel? offerModel);
     }
 }

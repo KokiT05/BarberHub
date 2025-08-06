@@ -24,6 +24,59 @@ namespace BarberHub.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Edit(string? id)
+        {
+            bool isValidId = Guid.TryParse(id, out Guid validId);
+            if (!isValidId)
+            {
+                // 404 meybe
+                return this.Forbid();
+            }
+
+            try
+            {
+                EditOfferViewModel? editOffer = await this.offerService.GetEditDetailsOfferAsync(id);
+
+                return this.View(editOffer);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                
+                // 500 server bad?
+                return this.Forbid();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditOfferViewModel inputModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
+            try
+            {
+                bool isEditSuccessfully = await this.offerService.EditOfferAsync(inputModel);
+
+                if (!isEditSuccessfully)
+                {
+                    return this.View(inputModel);
+                }
+
+                return this.RedirectToAction(nameof(All));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                // TODO: Need to return back to all offers
+                return this.RedirectToAction(nameof(All));
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Create(string? id)
         {
             FormOfferViewModel formOfferViewModel = new FormOfferViewModel();
