@@ -31,6 +31,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBarbershopService, BarbershopService>();
 builder.Services.AddScoped<IOfferService, OfferService>();
+builder.Services.AddScoped<ISelectOfferService, SelectOfferService>();
 
 var app = builder.Build();
 
