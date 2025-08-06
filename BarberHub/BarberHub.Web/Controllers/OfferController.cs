@@ -111,5 +111,23 @@ namespace BarberHub.Web.Controllers
                 return this.RedirectToAction(nameof(All), new { id = inputModel.BarbershopId });
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                bool isDeleteSuccessfully = await this.offerService
+                                                    .DeleteOfferAsync(id);
+
+                return this.RedirectToAction(nameof(All), new { id = "" });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return this.RedirectToAction(nameof(All), new { id = "" });
+            }
+        }
     }
 }

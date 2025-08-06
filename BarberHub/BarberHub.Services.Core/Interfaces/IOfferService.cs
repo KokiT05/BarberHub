@@ -16,5 +16,7 @@ namespace BarberHub.Services.Core.Interfaces
         Task<EditOfferViewModel?> GetEditDetailsOfferAsync(string? offerId);
 
         Task<bool> EditOfferAsync(EditOfferViewModel? offerModel);
+
+        Task<bool> DeleteOfferAsync(string? offerId);
     }
 }

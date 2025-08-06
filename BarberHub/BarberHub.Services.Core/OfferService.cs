@@ -102,5 +102,34 @@ namespace BarberHub.Services.Core
                 await this.applicationDbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<bool> DeleteOfferAsync(string? offerId)
+        {
+            //bool isValidBarbershopId = Guid.TryParse(barbershopId, out Guid validBarbershopId);
+            bool isValidOfferId = Guid.TryParse(offerId, out Guid validOfferId);
+
+            if (/*isValidBarbershopId &&*/ !isValidOfferId)
+            {
+                return false;
+            }
+
+            //Barbershop? barbershop = await this.applicationDbContext
+            //                            .Barbershops.SingleOrDefaultAsync(b => b.Id == validBarbershopId);
+
+            Offer? offer = await this.applicationDbContext
+                                .Offers.SingleOrDefaultAsync(o => o.Id == validOfferId);
+
+            if (/*barbershop == null &&*/ offer == null)
+            {
+                return false;
+            }
+
+            //barbershop.Offers.Remove(offer);
+
+            this.applicationDbContext.Offers.Remove(offer);
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
