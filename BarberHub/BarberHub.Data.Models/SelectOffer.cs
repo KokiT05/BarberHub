@@ -21,7 +21,10 @@ namespace BarberHub.Data.Models
         public decimal TotalPrice { get; set; }
 
         [Comment("Date and time when the offer was selected")]
-        public DateTime SelectedOn { get; set; }
+        public DateTime SelectedOn { get; set; } = DateTime.Now;
+
+        [Comment("Optional comment provided by the user")]
+        public string? Comment {  get; set; }
 
         [Comment("Foreign key reference to the user")]
         public string UserId { get; set; } = null!;

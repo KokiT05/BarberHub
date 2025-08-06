@@ -28,6 +28,14 @@ namespace BarberHub.Data.Common
         /// </summary>
         public const int DescriptionMaxLength = 1000;
 
+        public static class SelectOfferConstants
+        {
+            /// <summary>
+            /// SelectOffer Comment should be able to store text with length up to 1000 characters.
+            /// </summary>
+            public const int CommentMaxLength = 1000;
+        }
+
         public static class OfferConstants
         {
             /// <summary>
