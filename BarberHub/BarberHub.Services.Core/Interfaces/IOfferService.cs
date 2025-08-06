@@ -9,6 +9,8 @@ namespace BarberHub.Services.Core.Interfaces
 {
     public interface IOfferService
     {
-        Task<IEnumerable<AllOffersViewModel>> GetAllOffersAsync();
+        Task<IEnumerable<AllOffersViewModel>> GetAllOffersAsync(string? barbershopId);
+
+        Task CreateOfferAsync(FormOfferViewModel inputOfferModel, string? barbershopId);
     }
 }

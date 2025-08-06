@@ -73,6 +73,18 @@
                                 @offer.Price.ToString("F2") лв.
                             </span>
                         </div>
+                        <a asp-controller="Offer" asp-action="Edit" 
+                                class="text-nowrap ml-3">
+                            <span class="badge bg-warning text-dark p-2 offer-price">
+                                Направи промени
+                            </span>
+                        </a>
+                        <a asp-controller="Offer" asp-action="Delete"
+                           class="text-nowrap ml-3">
+                            <span class="badge bg-danger text-dark p-2 offer-price">
+                                Премахни услугата
+                            </span>
+                        </a>
                     </li>
                 }
             </ul>

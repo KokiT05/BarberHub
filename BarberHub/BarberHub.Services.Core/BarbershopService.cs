@@ -117,7 +117,7 @@ namespace BarberHub.Services.Core
                 CloseTime = TimeOnly.ParseExact(inputBarbershopModel.CloseTime, WorkTimeFormat)
             };
 
-            await this.applicationDbContext.AddAsync(barbershop);
+            await this.applicationDbContext.Barbershops.AddAsync(barbershop);
             await this.applicationDbContext.SaveChangesAsync();
         }
 

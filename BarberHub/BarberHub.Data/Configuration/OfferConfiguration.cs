@@ -26,13 +26,14 @@ namespace BarberHub.Data.Configuration
 
             model.Property(o => o.Price)
                 .IsRequired()
-                .HasPrecision(3, 2)
-                .HasMaxLength(PriceMaxValue);
+                .HasPrecision(5, 2);
 
             model.HasOne(o => o.Barbershop)
                 .WithMany(b => b.Offers)
                 .HasForeignKey(o => o.BarbershopId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            model.HasQueryFilter(o => !o.Barbershop.IsDeleted);
 
             model.HasData(this.SeedOffers());
         }

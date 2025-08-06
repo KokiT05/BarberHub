@@ -2,11 +2,12 @@
 using BarberHub.Data.Models.Interfaces;
 using BarberHub.Services.Core;
 using BarberHub.Web.ViewModels.Barbershop;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarberHub.Web.Controllers
 {
-    public class BarbershopController : Controller
+    public class BarbershopController : BaseController
     {
         private readonly IBarbershopService barbershopService;
         public BarbershopController(IBarbershopService barbershopService)
@@ -15,6 +16,7 @@ namespace BarberHub.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             IEnumerable<AllBarbershopsIndexViewModel> barbershops =
@@ -24,6 +26,7 @@ namespace BarberHub.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string? id)
         {
             try

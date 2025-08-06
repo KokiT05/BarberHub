@@ -1,0 +1,34 @@
+﻿.offer-form-card {
+    background-color: #f8f9fa;
+    color: #343a40;
+    border-radius: .75rem;
+}
+
+.card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.form-control {
+    border-color: #ced4da;
+}
+
+    .form-control:focus {
+        border-color: #007bff; 
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+.text-danger {
+    font-size: 0.875em;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+    .btn-outline-secondary:hover {
+        color: #f8f9fa;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }

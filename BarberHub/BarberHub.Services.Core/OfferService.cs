@@ -1,4 +1,5 @@
-﻿using BarberHub.Services.Core.Interfaces;
+﻿using BarberHub.Data.Models;
+using BarberHub.Services.Core.Interfaces;
 using BarberHub.Web.Data;
 using BarberHub.Web.ViewModels.Offer;
 using Microsoft.EntityFrameworkCore;
@@ -17,19 +18,45 @@ namespace BarberHub.Services.Core
         {
             this.applicationDbContext = applicationDbContext;
         }
-        public async Task<IEnumerable<AllOffersViewModel>> GetAllOffersAsync()
+
+        public async Task CreateOfferAsync(FormOfferViewModel inputOfferModel, string? barbershopId)
         {
-            IEnumerable<AllOffersViewModel> allOffers =
-                                        await this.applicationDbContext.Offers
-                                        .AsNoTracking()
-                                        .Select(o => new AllOffersViewModel()
-                                        {
-                                            Id = o.Id.ToString(),
-                                            Name = o.Name,
-                                            Description = o.Description,
-                                            Price = o.Price
-                                        })
-                                        .ToListAsync();
+            bool isValidBarbershopId =
+                Guid.TryParse(barbershopId, out Guid validBarbershopId);
+            if (isValidBarbershopId)
+            {
+                Offer offer = new Offer()
+                {
+                    Name = inputOfferModel.Name,
+                    Description = inputOfferModel.Description,
+                    Price = inputOfferModel.Price,
+                    BarbershopId = validBarbershopId,
+                };
+
+                await this.applicationDbContext.Offers.AddAsync(offer);
+                await this.applicationDbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<AllOffersViewModel>> GetAllOffersAsync(string? barbershopId)
+        {
+            IEnumerable<AllOffersViewModel> allOffers = new List<AllOffersViewModel>();
+
+            bool isValidId = Guid.TryParse(barbershopId, out Guid validId);
+            if (isValidId)
+            {
+                allOffers = await this.applicationDbContext.Offers
+                            .AsNoTracking()
+                            .Where(o => o.BarbershopId == validId)
+                            .Select(o => new AllOffersViewModel()
+                            {
+                                Id = o.Id.ToString(),
+                                Name = o.Name,
+                                Description = o.Description,
+                                Price = o.Price
+                            })
+                            .ToListAsync();
+            }
 
             return allOffers;
         }
