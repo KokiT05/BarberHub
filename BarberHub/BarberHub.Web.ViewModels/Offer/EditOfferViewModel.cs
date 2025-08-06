@@ -9,21 +9,24 @@ namespace BarberHub.Web.ViewModels.Offer
 {
     using static BarberHub.Data.Common.EntityConstants.OfferConstants;
     using static BarberHub.Data.Common.EntityConstants;
+
+    using static ValidationMessagesViewModels.OfferMessages;
+    using static ValidationMessagesViewModels;
     public class EditOfferViewModel
     {
         public string Id { get; set; } = null!;
 
         [Required]
-        [MinLength(NameMinLength)]
-        [MaxLength(NameMaxLength)]
+        [MinLength(NameMinLength, ErrorMessage = NameMinLengthErrorMessage)]
+        [MaxLength(NameMaxLength, ErrorMessage = NameMaxLengthErrorMessage)]
         public string Name { get; set; } = null!;
 
-        [MinLength(NameMinLength)]
-        [MaxLength(NameMaxLength)]
+        [MinLength(DescriptionMinLength, ErrorMessage = DescriptionMinLengthErrorMessage)]
+        [MaxLength(DescriptionMaxLength, ErrorMessage = DescriptionMaxLengthErrorMessage)]
         public string? Description { get; set; }
 
         [Required]
-        [Range(PriceMinValue, PriceMaxValue)]
+        [Range(PriceMinValue, PriceMaxValue, ErrorMessage = PriceRangeErrorMessage)]
         public decimal Price { get; set; }
     }
 }
