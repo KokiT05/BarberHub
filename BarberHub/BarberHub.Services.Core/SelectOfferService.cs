@@ -20,34 +20,35 @@ namespace BarberHub.Services.Core
         }
         public async Task GetAllOffersAsync(SelectedOffersViewModel inputSelectOffer, string userId)
         {
-            SelectOffer selectOffer = new SelectOffer();
+            //UserOffer selectOffer = new UserOffer();
 
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (string id in inputSelectOffer.SelectedOfferIds)
-            {
+            //StringBuilder stringBuilder = new StringBuilder();
 
-                Offer offer = await this.applicationDbContext.Offers
-                                        .Where(o => o.Id.ToString() == id)
-                                        .SingleAsync();
+            //foreach (string id in inputSelectOffer.SelectedOfferIds)
+            //{
 
-                if (inputSelectOffer.BarbershopId == null)
-                {
-                    inputSelectOffer.BarbershopId = offer.BarbershopId.ToString();
-                }
+            //    Offer offer = await this.applicationDbContext.Offers
+            //                            .Where(o => o.Id.ToString() == id)
+            //                            .SingleAsync();
 
-                stringBuilder.Append($"{offer.Name}: {offer.Description}, цена: {offer.Price}");
-                stringBuilder.AppendLine();
+            //    if (inputSelectOffer.BarbershopId == null)
+            //    {
+            //        inputSelectOffer.BarbershopId = offer.BarbershopId.ToString();
+            //    }
 
-                selectOffer.TotalPrice += offer.Price;
-            }
+            //    stringBuilder.Append($"{offer.Name}: {offer.Description}, цена: {offer.Price}");
+            //    stringBuilder.AppendLine();
 
-            string result = stringBuilder.ToString().TrimEnd();
+            //    selectOffer.TotalPrice += offer.Price;
+            //}
 
-            selectOffer.SelectOfferDescription = result;
-            selectOffer.UserId = userId;
+            //string result = stringBuilder.ToString().TrimEnd();
 
-            await this.applicationDbContext.SelectOffer.AddAsync(selectOffer);
-            await this.applicationDbContext.SaveChangesAsync();
+            //selectOffer.Description = result;
+            //selectOffer.UserId = userId;
+
+            //await this.applicationDbContext.SelectOffer.AddAsync(selectOffer);
+            //await this.applicationDbContext.SaveChangesAsync();
         }
     }
 }

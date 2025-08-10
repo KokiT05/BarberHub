@@ -9,13 +9,18 @@ using System.Threading.Tasks;
 namespace BarberHub.Data.Models
 {
     [Comment("Represents a selected offer by a user")]
-    public class SelectOffer
+    public class UserOffer
     {
-        [Comment("SelectOffer Indentifier")]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        [Comment("Foreign key reference to the offer")]
+        public Guid OfferId { get; set; }
+        public virtual Offer Offer { get; set; } = null!;
+
+		[Comment("Foreign key reference to the user")]
+		public string UserId { get; set; } = null!;
+		public virtual IdentityUser User { get; set; } = null!;
 
         [Comment("SelectOffer Description")]
-        public string? SelectOfferDescription { get; set; }
+        public string? Description { get; set; }
 
         [Comment("SelectOffer TotalPrice")]
         public decimal TotalPrice { get; set; }
@@ -25,9 +30,5 @@ namespace BarberHub.Data.Models
 
         [Comment("Optional comment provided by the user")]
         public string? Comment {  get; set; }
-
-        [Comment("Foreign key reference to the user")]
-        public string UserId { get; set; } = null!;
-        public virtual IdentityUser User { get; set; } = null!;
     }
 }
