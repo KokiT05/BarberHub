@@ -17,7 +17,7 @@ namespace BarberHub.Web.Data
 
         public virtual DbSet<Offer> Offers { get; set; }
 
-        public virtual DbSet<UserOffer> SelectOffer { get; set; }
+        public virtual DbSet<UserOffer> UserOffers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

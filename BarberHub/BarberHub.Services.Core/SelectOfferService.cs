@@ -18,8 +18,68 @@ namespace BarberHub.Services.Core
         {
             this.applicationDbContext = applicationDbContext;
         }
-        public async Task GetAllOffersAsync(SelectedOffersViewModel inputSelectOffer, string userId)
+
+		public async Task AddSelectOfferAsync(SelectedOffersViewModel inputSelectOfferModel, string userId)
+		{
+
+            Offer? offer = null;
+            UserOffer? userOffer = null;
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            string offerTitle = string.Empty;
+            string offerDescription = string.Empty;
+            decimal offerPrice = 0;
+
+			foreach (string id in inputSelectOfferModel.SelectedOfferIds)
+            {
+                if (Guid.TryParse(id, out Guid validOfferId))
+                {
+                    offer = await this.applicationDbContext
+                                                .Offers
+                                                .Where(o => o.Id == validOfferId)
+                                                .SingleOrDefaultAsync();
+
+                    if (offer != null)
+                    {
+						offerTitle = await this.applicationDbContext
+						                        .Offers
+						                        .Select(o => o.Name)
+						                        .FirstAsync();
+
+                        offerDescription = await this.applicationDbContext
+                                                .Offers
+                                                .Select(o => o.Description)
+                                                .FirstAsync();
+
+                        offerPrice = await this.applicationDbContext
+                                                .Offers
+                                                .Select(o => o.Price)
+                                                .FirstAsync();
+
+                        stringBuilder
+                        .AppendLine
+                        ($"Name: {offerTitle}, Description: {offerDescription}, Price: {offerPrice}");
+
+						userOffer = new UserOffer()
+                        {
+                            UserId = userId,
+                            OfferId = validOfferId,
+                            Description = stringBuilder.ToString(),
+                        };
+
+                        await this.applicationDbContext.UserOffers.AddAsync(userOffer);
+                        await this.applicationDbContext.SaveChangesAsync();
+                    }
+
+				}
+            }
+		}
+
+		public async Task GetAllSelectOffersAsync(SelectedOffersViewModel inputSelectOffer, string userId)
         {
+
+
             //UserOffer selectOffer = new UserOffer();
 
             //StringBuilder stringBuilder = new StringBuilder();

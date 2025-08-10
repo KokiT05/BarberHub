@@ -42,7 +42,29 @@ namespace BarberHub.Services.Core
             return allOffers;
         }
 
-        public async Task<EditOfferViewModel?> GetEditDetailsOfferAsync(string? offerId)
+		public async Task<IEnumerable<AllOffersViewModel>> GetAllSelectOffersAsync(IEnumerable<string> selectOfferIds)
+		{
+			IEnumerable<AllOffersViewModel> allOffers = new List<AllOffersViewModel>();
+
+            if (this.IsValidAllOfferIds(selectOfferIds))
+            {
+				allOffers = await this.applicationDbContext.Offers
+				                    .AsNoTracking()
+				                    .Where(o => selectOfferIds.Contains(o.Id.ToString()))
+				                    .Select(o => new AllOffersViewModel()
+				                    {
+				                    	Id = o.Id.ToString(),
+				                    	Name = o.Name,
+				                    	Description = o.Description,
+				                    	Price = o.Price
+				                    })
+				                    .ToListAsync();
+			}
+
+            return allOffers;
+		}
+
+		public async Task<EditOfferViewModel?> GetEditDetailsOfferAsync(string? offerId)
         {
             EditOfferViewModel? editOfferViewModel = null;
 
@@ -131,5 +153,22 @@ namespace BarberHub.Services.Core
 
             return true;
         }
-    }
+
+        private bool IsValidAllOfferIds(IEnumerable<string> offerIds)
+        {
+            bool isValidId = true;
+
+            foreach (string id in offerIds)
+            {
+                isValidId = Guid.TryParse(id, out Guid validGuidId);
+
+                if (isValidId == false)
+                {
+                    return false;
+                }
+            }
+
+            return isValidId;
+        }
+	}
 }

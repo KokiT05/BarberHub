@@ -21,9 +21,9 @@ namespace BarberHub.Data.Configuration
                 .IsRequired()
                 .HasMaxLength(DescriptionMaxLength);
 
-            model.Property(so => so.TotalPrice)
-                .IsRequired()
-                .HasPrecision(5, 2);
+            //model.Property(so => so.TotalPrice)
+            //    .IsRequired()
+            //    .HasPrecision(5, 2);
 
             model.Property(so => so.SelectedOn)
                 .IsRequired()

@@ -9,6 +9,8 @@ namespace BarberHub.Services.Core.Interfaces
 {
     public interface ISelectOfferService
     {
-        Task GetAllOffersAsync(SelectedOffersViewModel inputSelectOfferModel, string userId);
+        Task GetAllSelectOffersAsync(SelectedOffersViewModel inputSelectOfferModel, string userId);
+
+        Task AddSelectOfferAsync(SelectedOffersViewModel inputSelectOfferModel, string userId);
     }
 }

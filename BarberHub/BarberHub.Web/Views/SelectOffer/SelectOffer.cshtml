@@ -1,0 +1,106 @@
+﻿@using BarberHub.Web.ViewModels.Offer
+@model IEnumerable<AllOffersViewModel>
+
+@{
+    ViewData["Title"] = "Потвърди и запази час";
+}
+
+<div class="container py-5">
+    <h1 class="text-center mb-5 text-warning">Преглед на избрани услуги и записване на час</h1>
+    <hr class="bg-warning mb-5" style="height: 3px;">
+
+    @* Формата ще изпрати POST заявка към контролер, който обработва резервацията *@
+    <form asp-controller="Booking" asp-action="ConfirmBooking" method="post" id="bookingForm">
+        <div class="row">
+            @* Колона за избраните услуги *@
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <div class="card bg-dark text-light border-warning shadow-lg">
+                    <div class="card-header bg-warning text-dark font-weight-bold">
+                        Вашите избрани услуги
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @if (Model != null && Model.Any())
+                        {
+                            @foreach (var offer in Model)
+                            {
+                                <li class="list-group-item bg-dark text-light d-flex justify-content-between align-items-center border-bottom border-secondary">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-cut text-warning mr-2"></i>@offer.Name
+                                    </h5>
+                                    <span class="badge badge-warning p-2">@offer.Price.ToString("F2") лв.</span>
+
+                                    @* Скрити полета за предаване на ID-тата на офертите обратно към контролера *@
+                                    <input type="hidden" name="selectedOfferIds" value="@offer.Id" />
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item bg-dark text-light border-bottom border-secondary">
+                                <p class="text-muted mb-0">Няма избрани услуги.</p>
+                            </li>
+                        }
+                    </ul>
+                    <div class="card-footer bg-secondary d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0 text-light">Обща сума:</h4>
+                        <h4 class="mb-0 text-warning" id="totalPriceDisplay">0.00 лв.</h4>
+                    </div>
+                </div>
+            </div>
+
+            @* Колона за избор на дата/час и коментар *@
+            <div class="col-lg-5">
+                <div class="card bg-dark text-light border-warning shadow-lg">
+                    <div class="card-header bg-warning text-dark font-weight-bold">
+                        Запази час
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mb-4">
+                            <label for="bookingDate" class="form-label text-warning"><i class="far fa-calendar-alt mr-2"></i> Желана дата:</label>
+                            <input type="date" id="bookingDate" name="bookingDate" class="form-control bg-secondary text-light border-warning" required
+                                   min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="bookingTime" class="form-label text-warning"><i class="far fa-clock mr-2"></i> Желан час:</label>
+                            <input type="time" id="bookingTime" name="bookingTime" class="form-control bg-secondary text-light border-warning" required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="comment" class="form-label text-warning"><i class="far fa-comment-alt mr-2"></i> Допълнителен коментар:</label>
+                            <textarea id="comment" name="comment" class="form-control bg-secondary text-light border-warning" rows="4" maxlength="500" placeholder="Напишете вашия коментар тук..."></textarea>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-warning btn-lg w-100">
+                                <i class="fas fa-calendar-check mr-2"></i> Запази час сега
+                            </button>
+                            <a asp-controller="Offer" asp-action="All" class="btn btn-outline-secondary btn-lg w-100 mt-2">
+                                <i class="fas fa-arrow-left mr-2"></i> Промени услуги
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Изчисляване на общата сума при зареждане на страницата
+            function calculateTotalPrice() {
+                let totalPrice = 0;
+                const priceElements = document.querySelectorAll('.list-group-item .badge');
+                priceElements.forEach(badge => {
+                    const priceText = badge.textContent.replace(' лв.', '').trim();
+                    totalPrice += parseFloat(priceText);
+                });
+                document.getElementById('totalPriceDisplay').textContent = totalPrice.toFixed(2) + ' лв.';
+            }
+
+            calculateTotalPrice();
+        });
+    </script>
+}

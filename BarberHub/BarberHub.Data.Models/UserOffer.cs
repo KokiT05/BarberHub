@@ -22,8 +22,8 @@ namespace BarberHub.Data.Models
         [Comment("SelectOffer Description")]
         public string? Description { get; set; }
 
-        [Comment("SelectOffer TotalPrice")]
-        public decimal TotalPrice { get; set; }
+        //[Comment("SelectOffer TotalPrice")]
+        //public decimal TotalPrice { get; set; }
 
         [Comment("Date and time when the offer was selected")]
         public DateTime SelectedOn { get; set; } = DateTime.Now;

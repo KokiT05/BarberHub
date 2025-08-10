@@ -11,6 +11,8 @@ namespace BarberHub.Services.Core.Interfaces
     {
         Task<IEnumerable<AllOffersViewModel>> GetAllOffersAsync(string? barbershopId);
 
+        Task<IEnumerable<AllOffersViewModel>> GetAllSelectOffersAsync(IEnumerable<string> selectOfferIds);
+
         Task CreateOfferAsync(FormOfferViewModel inputOfferModel, string? barbershopId);
 
         Task<EditOfferViewModel?> GetEditDetailsOfferAsync(string? offerId);
