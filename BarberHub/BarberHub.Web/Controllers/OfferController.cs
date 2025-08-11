@@ -19,8 +19,13 @@ namespace BarberHub.Web.Controllers
         public async Task<IActionResult> All(string? id)
         {
             IEnumerable<AllOffersViewModel> offers = await this.offerService.GetAllOffersAsync(id);
+            BarbershopAllOffersViewModel barbershopAllOffers = new BarbershopAllOffersViewModel()
+            {
+                AllOffers = offers,
+                BarbershopId = id
+            };
 
-            return this.View(offers);
+            return this.View(barbershopAllOffers);
         }
 
         [Authorize(Roles = "Admin")]

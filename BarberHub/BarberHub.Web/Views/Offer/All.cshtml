@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BarberHub.Web.ViewModels.Offer.AllOffersViewModel>
+﻿@using BarberHub.Web.ViewModels.Offer
+@model BarbershopAllOffersViewModel
 
 @{
     ViewData["Title"] = "Нашите оферти";
@@ -36,7 +37,7 @@
         </div>
     }
 
-    @if (!Model.Any())
+    @if (!Model.AllOffers.Any())
     {
         <div class="alert alert-info text-center" role="alert">
             Все още няма добавени оферти. Очаквайте скоро!
@@ -44,9 +45,9 @@
     }
     else
     {
-        <form asp-controller="SelectOffer" asp-action="SelectOffer" method="post" id="offersForm">
+        <form asp-controller="SelectOffer" asp-action="SelectOffer" asp-route-id="@Model.BarbershopId" method="post" id="offersForm">
             <ul class="list-group list-group-flush mb-4 shadow-sm offer-list-group">
-                @foreach (var offer in Model)
+                @foreach (var offer in Model.AllOffers)
                 {
                     <li class="list-group-item d-flex justify-content-between align-items-center offer-list-item py-3">
                         <div class="d-flex align-items-center flex-grow-1">
@@ -96,7 +97,6 @@
                 <button type="submit" class="btn btn-warning btn-lg">
                     <i class="fas fa-check-circle mr-2"></i> Избери услуги
                 </button>
-                @* Можете да добавите и бутон за отмяна или друг, ако е нужно *@
                 <a href="javascript:void(0);" onclick="document.getElementById('offersForm').reset();" class="btn btn-outline-secondary btn-lg ml-3">
                     <i class="fas fa-undo-alt mr-2"></i> Изчисти избора
                 </a>

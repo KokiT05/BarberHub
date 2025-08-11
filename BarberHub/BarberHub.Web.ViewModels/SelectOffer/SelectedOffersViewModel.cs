@@ -12,8 +12,5 @@ namespace BarberHub.Web.ViewModels.SelectOffer
         [Required]
         public ICollection<string> SelectedOfferIds { get; set; } = new List<string>();
 
-        [Required]
-        public string BarbershopId { get; set; } = null!;
-
     }
 }

@@ -18,16 +18,20 @@ namespace BarberHub.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SelectOffer(SelectedOffersViewModel inputModel)
+        public async Task<IActionResult> SelectOffer(SelectedOffersViewModel inputModel, string id)
         {
             //string id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //IEnumerable<AllOffersViewModel> allSelectOffer = await this.offerService
             //                                                        .GetAllOffersAsync()
 
-            IEnumerable<AllOffersViewModel> allSelectOffer = await this.offerService
+            BarbershopSelectedOffersViewModel barbershopSelectedOffers = new BarbershopSelectedOffersViewModel();
+
+            barbershopSelectedOffers.AllOffers = await this.offerService
                                                     .GetAllSelectOffersAsync(inputModel.SelectedOfferIds);
 
-            return this.View(allSelectOffer);
+            barbershopSelectedOffers.BarbershopId = id;
+
+            return this.View(barbershopSelectedOffers);
         }
     }
 }
