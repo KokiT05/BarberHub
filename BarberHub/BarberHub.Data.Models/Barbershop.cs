@@ -35,6 +35,8 @@ namespace BarberHub.Data.Models
 
         public virtual ICollection<Offer> Offers { get; set; } = new HashSet<Offer>();
 
+        public virtual ICollection<Appointment> Appointments { get; set; } = new HashSet<Appointment>();
+
         [Comment("Show if barbershop is deleted")]
         public bool IsDeleted { get; set; } = false;
     }

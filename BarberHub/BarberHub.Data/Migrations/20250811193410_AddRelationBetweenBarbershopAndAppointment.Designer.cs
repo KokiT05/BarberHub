@@ -4,6 +4,7 @@ using BarberHub.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberHub.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250811193410_AddRelationBetweenBarbershopAndAppointment")]
+    partial class AddRelationBetweenBarbershopAndAppointment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,7 +268,7 @@ namespace BarberHub.Data.Migrations
                     b.Property<DateTime>("SelectedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 8, 11, 22, 43, 31, 274, DateTimeKind.Local).AddTicks(1896))
+                        .HasDefaultValue(new DateTime(2025, 8, 11, 22, 34, 8, 992, DateTimeKind.Local).AddTicks(8997))
                         .HasComment("Date and time when the offer was selected");
 
                     b.HasKey("UserId", "OfferId");

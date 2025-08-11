@@ -4,6 +4,7 @@ using BarberHub.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberHub.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250811191644_AddAppointmentWithConfiguration")]
+    partial class AddAppointmentWithConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,11 @@ namespace BarberHub.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("BarbershopId")
+                    b.Property<string>("BarbershopId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("BarbershopId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Comment")
@@ -56,11 +63,11 @@ namespace BarberHub.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BarbershopId");
+                    b.HasIndex("BarbershopId1");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointment");
                 });
 
             modelBuilder.Entity("BarberHub.Data.Models.Barbershop", b =>
@@ -265,7 +272,7 @@ namespace BarberHub.Data.Migrations
                     b.Property<DateTime>("SelectedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 8, 11, 22, 43, 31, 274, DateTimeKind.Local).AddTicks(1896))
+                        .HasDefaultValue(new DateTime(2025, 8, 11, 22, 16, 42, 961, DateTimeKind.Local).AddTicks(4717))
                         .HasComment("Date and time when the offer was selected");
 
                     b.HasKey("UserId", "OfferId");
@@ -483,8 +490,8 @@ namespace BarberHub.Data.Migrations
             modelBuilder.Entity("BarberHub.Data.Models.Appointment", b =>
                 {
                     b.HasOne("BarberHub.Data.Models.Barbershop", "Barbershop")
-                        .WithMany("Appointments")
-                        .HasForeignKey("BarbershopId")
+                        .WithMany()
+                        .HasForeignKey("BarbershopId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -582,8 +589,6 @@ namespace BarberHub.Data.Migrations
 
             modelBuilder.Entity("BarberHub.Data.Models.Barbershop", b =>
                 {
-                    b.Navigation("Appointments");
-
                     b.Navigation("Offers");
                 });
 #pragma warning restore 612, 618

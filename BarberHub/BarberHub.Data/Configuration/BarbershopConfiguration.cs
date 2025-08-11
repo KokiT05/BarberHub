@@ -44,6 +44,10 @@ namespace BarberHub.Data.Configuration
                 .WithOne(o => o.Barbershop)
                 .HasForeignKey(o => o.BarbershopId);
 
+            model.HasMany(b => b.Appointments)
+                .WithOne(a => a.Barbershop)
+                .HasForeignKey(a => a.BarbershopId);
+
             model.Property(b => b.IsDeleted).IsRequired().HasDefaultValue(false);
 
             model.HasQueryFilter(b => b.IsDeleted == false);
