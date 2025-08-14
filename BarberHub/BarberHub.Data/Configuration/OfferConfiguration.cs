@@ -31,7 +31,7 @@ namespace BarberHub.Data.Configuration
             model.HasOne(o => o.Barbershop)
                 .WithMany(b => b.Offers)
                 .HasForeignKey(o => o.BarbershopId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             model.HasQueryFilter(o => !o.Barbershop.IsDeleted);
 

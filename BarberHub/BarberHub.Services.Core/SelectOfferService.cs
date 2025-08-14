@@ -1,6 +1,7 @@
 ﻿using BarberHub.Data.Models;
 using BarberHub.Services.Core.Interfaces;
 using BarberHub.Web.Data;
+using BarberHub.Web.ViewModels.Offer;
 using BarberHub.Web.ViewModels.SelectOffer;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,19 +20,12 @@ namespace BarberHub.Services.Core
             this.applicationDbContext = applicationDbContext;
         }
 
-		public async Task AddSelectOfferAsync(SelectedOffersViewModel inputSelectOfferModel, string userId)
+		public async Task AddSelectOfferAsync(IEnumerable<string> inputModelIds, string barbershopId, string userId)
 		{
-
             Offer? offer = null;
             UserOffer? userOffer = null;
 
-            StringBuilder stringBuilder = new StringBuilder();
-
-            string offerTitle = string.Empty;
-            string offerDescription = string.Empty;
-            decimal offerPrice = 0;
-
-			foreach (string id in inputSelectOfferModel.SelectedOfferIds)
+			foreach (string id in inputModelIds)
             {
                 if (Guid.TryParse(id, out Guid validOfferId))
                 {
@@ -42,30 +36,11 @@ namespace BarberHub.Services.Core
 
                     if (offer != null)
                     {
-						offerTitle = await this.applicationDbContext
-						                        .Offers
-						                        .Select(o => o.Name)
-						                        .FirstAsync();
-
-                        offerDescription = await this.applicationDbContext
-                                                .Offers
-                                                .Select(o => o.Description)
-                                                .FirstAsync();
-
-                        offerPrice = await this.applicationDbContext
-                                                .Offers
-                                                .Select(o => o.Price)
-                                                .FirstAsync();
-
-                        stringBuilder
-                        .AppendLine
-                        ($"Name: {offerTitle}, Description: {offerDescription}, Price: {offerPrice}");
-
 						userOffer = new UserOffer()
                         {
                             UserId = userId,
                             OfferId = validOfferId,
-                            Description = stringBuilder.ToString(),
+							//SelectedOn = inputModel.SelectedOn
                         };
 
                         await this.applicationDbContext.UserOffers.AddAsync(userOffer);
@@ -76,39 +51,35 @@ namespace BarberHub.Services.Core
             }
 		}
 
-		public async Task GetAllSelectOffersAsync(SelectedOffersViewModel inputSelectOffer, string userId)
+		public async Task<BarbershopSelectedOffersViewModel?> GetAllSelectOffersAsync(IEnumerable<string> selectedOffers , string barbershopId)
         {
+			BarbershopSelectedOffersViewModel barbershopSelectedOffers = new BarbershopSelectedOffersViewModel();
+			barbershopSelectedOffers.AllOffers = new List<AllOffersViewModel>();
 
+			bool isOfferIdValid = false;
+			foreach (string selectedOffer in selectedOffers)
+			{
+				isOfferIdValid = Guid.TryParse(selectedOffer, out Guid GuidId);
+				if (!isOfferIdValid)
+				{
+					return barbershopSelectedOffers;
+				}
+			}
+			barbershopSelectedOffers.BarbershopId = barbershopId;
+			barbershopSelectedOffers.AllOffers = await this.applicationDbContext.Offers
+								.AsNoTracking()
+								.Where(o => selectedOffers.Contains(o.Id.ToString()))
+								.Select(o => new AllOffersViewModel()
+								{
+									Id = o.Id.ToString(),
+									Name = o.Name,
+									Description = o.Description,
+									Price = o.Price
+								})
+								.ToListAsync();
 
-            //UserOffer selectOffer = new UserOffer();
+			return barbershopSelectedOffers;
 
-            //StringBuilder stringBuilder = new StringBuilder();
-
-            //foreach (string id in inputSelectOffer.SelectedOfferIds)
-            //{
-
-            //    Offer offer = await this.applicationDbContext.Offers
-            //                            .Where(o => o.Id.ToString() == id)
-            //                            .SingleAsync();
-
-            //    if (inputSelectOffer.BarbershopId == null)
-            //    {
-            //        inputSelectOffer.BarbershopId = offer.BarbershopId.ToString();
-            //    }
-
-            //    stringBuilder.Append($"{offer.Name}: {offer.Description}, цена: {offer.Price}");
-            //    stringBuilder.AppendLine();
-
-            //    selectOffer.TotalPrice += offer.Price;
-            //}
-
-            //string result = stringBuilder.ToString().TrimEnd();
-
-            //selectOffer.Description = result;
-            //selectOffer.UserId = userId;
-
-            //await this.applicationDbContext.SelectOffer.AddAsync(selectOffer);
-            //await this.applicationDbContext.SaveChangesAsync();
-        }
+		}
     }
 }

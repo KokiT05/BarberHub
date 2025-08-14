@@ -34,6 +34,7 @@
                     <form asp-controller="Offer" asp-action="Edit" method="post">
                         @* Скрито поле за Id, за да се предаде обратно при POST заявката и да знаем коя услуга редактираме *@
                         <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="BarbershopId" />
 
                         <div class="form-group mb-3">
                             <label asp-for="Name"></label>

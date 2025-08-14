@@ -19,8 +19,9 @@ namespace BarberHub.Services.Core
             this.applicationDbContext = applicationDbContext;
         }
 
-        public async Task<IEnumerable<AllOffersViewModel>> GetAllOffersAsync(string? barbershopId)
+        public async Task<BarbershopAllOffersViewModel?> GetAllOffersAsync(string? barbershopId)
         {
+            BarbershopAllOffersViewModel? barbershopAllOffers = new BarbershopAllOffersViewModel();
             IEnumerable<AllOffersViewModel> allOffers = new List<AllOffersViewModel>();
 
             bool isValidId = Guid.TryParse(barbershopId, out Guid validId);
@@ -39,7 +40,10 @@ namespace BarberHub.Services.Core
                             .ToListAsync();
             }
 
-            return allOffers;
+            barbershopAllOffers.AllOffers = allOffers;
+            barbershopAllOffers.BarbershopId = barbershopId;
+
+            return barbershopAllOffers;
         }
 
 		public async Task<IEnumerable<AllOffersViewModel>> GetAllSelectOffersAsync(IEnumerable<string> selectOfferIds)
@@ -79,7 +83,8 @@ namespace BarberHub.Services.Core
                                                 Id = validId.ToString(),
                                                 Name = o.Name,
                                                 Description = o.Description,
-                                                Price = o.Price
+                                                Price = o.Price,
+                                                BarbershopId = o.BarbershopId.ToString()
                                             })
                                             .SingleOrDefaultAsync();
             }

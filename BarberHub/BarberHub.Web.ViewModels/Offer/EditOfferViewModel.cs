@@ -28,5 +28,7 @@ namespace BarberHub.Web.ViewModels.Offer
         [Required]
         [Range(PriceMinValue, PriceMaxValue, ErrorMessage = PriceRangeErrorMessage)]
         public decimal Price { get; set; }
+
+        public string BarbershopId { get; set; } = null!;
     }
 }

@@ -53,8 +53,14 @@ namespace BarberHub.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string? id)
         {
-            try
+			if (this.IsAuthenticated() == false)
+			{
+                return this.Forbid();
+			}
+
+			try
             {
+
                 EditBarbershopViewModel? editBarbershop =
                                     await this.barbershopService.GetEditDetailsBarbershopAsync(id);
 
@@ -79,6 +85,11 @@ namespace BarberHub.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditBarbershopViewModel inputModel)
         {
+            if (this.IsAuthenticated() == false)
+            {
+                return this.Forbid();
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(inputModel);
@@ -107,6 +118,11 @@ namespace BarberHub.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            if (this.IsAuthenticated() == false)
+            {
+                return this.Forbid();
+            }
+
             return this.View();
         }
 
@@ -114,7 +130,12 @@ namespace BarberHub.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(FormBarbershopViewModel inputModel)
         {
-            if (!ModelState.IsValid)
+			if (this.IsAuthenticated() == false)
+			{
+				return this.Forbid();
+			}
+
+			if (!ModelState.IsValid)
             {
                 return this.View(inputModel);
             }
@@ -139,7 +160,12 @@ namespace BarberHub.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string? id)
         {
-            try
+			if (this.IsAuthenticated() == false)
+			{
+				return this.Forbid();
+			}
+
+			try
             {
                 DeleteBarbershopViewModel? deleteBarbershop =
                                             await this.barbershopService.GetDeleteBarbershopAsync(id);
@@ -162,7 +188,12 @@ namespace BarberHub.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(DeleteBarbershopViewModel inputModel)
         {
-            try
+			if (this.IsAuthenticated() == false)
+			{
+				return this.Forbid();
+			}
+
+			try
             {
                 bool deleteResult = await this.barbershopService.SoftDeleteAsync(inputModel.Id);
 

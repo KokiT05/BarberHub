@@ -17,9 +17,9 @@ namespace BarberHub.Data.Configuration
         {
             model.HasKey(so => new { so.UserId, so.OfferId});
 
-            model.Property(so => so.Description)
-                .IsRequired()
-                .HasMaxLength(DescriptionMaxLength);
+            //model.Property(so => so.Description)
+            //    .IsRequired()
+            //    .HasMaxLength(DescriptionMaxLength);
 
             //model.Property(so => so.TotalPrice)
             //    .IsRequired()
@@ -29,8 +29,8 @@ namespace BarberHub.Data.Configuration
                 .IsRequired()
                 .HasDefaultValue(DateTime.Now);
 
-            model.Property(so => so.Comment)
-                .HasMaxLength(CommentMaxLength);
+            //model.Property(so => so.Comment)
+            //    .HasMaxLength(CommentMaxLength);
 
             model.HasOne(so => so.User)
                 .WithMany()
@@ -39,7 +39,7 @@ namespace BarberHub.Data.Configuration
                 .OnDelete(DeleteBehavior.Cascade);
 
             model.HasOne(so => so.Offer)
-                .WithMany()
+                .WithMany(o => o.UserOffers)
                 .HasForeignKey(so => so.OfferId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);

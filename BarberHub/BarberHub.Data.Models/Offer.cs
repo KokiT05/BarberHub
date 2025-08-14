@@ -22,8 +22,11 @@ namespace BarberHub.Data.Models
         [Comment("Offer Price")]
         public decimal Price {  get; set; }
 
+        [Comment("FK describe relation between Barbershop and Offer")]
         public Guid BarbershopId { get; set; }
 
         public virtual Barbershop Barbershop { get; set; } = null!;
-    }
+
+		public virtual ICollection<UserOffer> UserOffers { get; set; } = new HashSet<UserOffer>();
+	}
 }

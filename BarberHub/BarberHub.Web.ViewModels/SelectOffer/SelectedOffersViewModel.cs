@@ -12,5 +12,7 @@ namespace BarberHub.Web.ViewModels.SelectOffer
         [Required]
         public ICollection<string> SelectedOfferIds { get; set; } = new List<string>();
 
+        
+
     }
 }

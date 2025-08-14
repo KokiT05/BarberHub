@@ -18,12 +18,7 @@ namespace BarberHub.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All(string? id)
         {
-            IEnumerable<AllOffersViewModel> offers = await this.offerService.GetAllOffersAsync(id);
-            BarbershopAllOffersViewModel barbershopAllOffers = new BarbershopAllOffersViewModel()
-            {
-                AllOffers = offers,
-                BarbershopId = id
-            };
+            BarbershopAllOffersViewModel? barbershopAllOffers = await this.offerService.GetAllOffersAsync(id);
 
             return this.View(barbershopAllOffers);
         }
@@ -32,16 +27,15 @@ namespace BarberHub.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string? id)
         {
-            bool isValidId = Guid.TryParse(id, out Guid validId);
-            if (isValidId)
-            {
-                // TODO
-                return this.NotFound();
-            }
 
             try
             {
                 EditOfferViewModel? editOffer = await this.offerService.GetEditDetailsOfferAsync(id);
+
+                if (editOffer == null)
+                {
+                    return this.NotFound();
+                }
 
                 return this.View(editOffer);
             }
@@ -71,13 +65,13 @@ namespace BarberHub.Web.Controllers
                     return this.View(inputModel);
                 }
 
-                return this.RedirectToAction("Home/Index");
+                return this.RedirectToAction(nameof(All), new {id = inputModel.BarbershopId});
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
-                return this.RedirectToAction("Home/Index");
+                return this.RedirectToAction(nameof(Index), "Home");
             }
         }
 
@@ -85,11 +79,11 @@ namespace BarberHub.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(string? id)
         {
-            FormOfferViewModel formOfferViewModel = new FormOfferViewModel();
             bool isValidId = Guid.TryParse(id, out Guid validId);
             if (isValidId)
             {
-                formOfferViewModel.BarbershopId = id;
+				FormOfferViewModel formOfferViewModel = new FormOfferViewModel();
+				formOfferViewModel.BarbershopId = id;
                 return this.View(formOfferViewModel);
             }
 
@@ -121,22 +115,21 @@ namespace BarberHub.Web.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, string barbershopId)
         {
             try
             {
                 bool isDeleteSuccessfully = await this.offerService
                                                     .DeleteOfferAsync(id);
 
-
-                return this.RedirectToAction("Home/Index");
+                return this.RedirectToAction(nameof(All), new {id = barbershopId});
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
 
-                return this.RedirectToAction("Home/Index");
+                return this.RedirectToAction(nameof(All), new { id = barbershopId });
             }
         }
     }

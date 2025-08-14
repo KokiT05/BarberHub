@@ -19,8 +19,8 @@ namespace BarberHub.Data.Models
 		public string UserId { get; set; } = null!;
 		public virtual IdentityUser User { get; set; } = null!;
 
-        [Comment("SelectOffer Description")]
-        public string? Description { get; set; }
+        //[Comment("SelectOffer Description")]
+        //public string? Description { get; set; }
 
         //[Comment("SelectOffer TotalPrice")]
         //public decimal TotalPrice { get; set; }
@@ -28,7 +28,7 @@ namespace BarberHub.Data.Models
         [Comment("Date and time when the offer was selected")]
         public DateTime SelectedOn { get; set; } = DateTime.Now;
 
-        [Comment("Optional comment provided by the user")]
-        public string? Comment {  get; set; }
+        //[Comment("Optional comment provided by the user")]
+        //public string? Comment {  get; set; }
     }
 }

@@ -17,21 +17,40 @@ namespace BarberHub.Web.Controllers
             this.offerService = offerService;
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> SelectOffer(SelectedOffersViewModel inputModel, string id)
         {
             //string id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //IEnumerable<AllOffersViewModel> allSelectOffer = await this.offerService
             //                                                        .GetAllOffersAsync()
 
-            BarbershopSelectedOffersViewModel barbershopSelectedOffers = new BarbershopSelectedOffersViewModel();
+            BarbershopSelectedOffersViewModel barbershopSelectedOffers =
+                            await this.selectOfferService.GetAllSelectOffersAsync(inputModel.SelectedOfferIds, id);
 
-            barbershopSelectedOffers.AllOffers = await this.offerService
-                                                    .GetAllSelectOffersAsync(inputModel.SelectedOfferIds);
-
-            barbershopSelectedOffers.BarbershopId = id;
+            if (barbershopSelectedOffers == null || barbershopSelectedOffers.AllOffers.Count() == 0)
+            {
+                return this.RedirectToAction("All", "Barbershop");
+            }
 
             return this.View(barbershopSelectedOffers);
         }
-    }
+
+        [HttpPost]
+		public async Task<IActionResult> ConfirmSelectOffer(CreateSelectOfferViewModel inputModel, string id)
+        {
+            try
+            {
+                //await this.selectOfferService.AddSelectOfferAsync(inputModel, id);
+
+                return this.RedirectToAction("Idex", "Home");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+				return this.RedirectToAction("Idex", "Home");
+			}
+        }
+
+	}
 }

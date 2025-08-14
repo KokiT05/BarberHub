@@ -45,7 +45,7 @@
     }
     else
     {
-        <form asp-controller="SelectOffer" asp-action="SelectOffer" asp-route-id="@Model.BarbershopId" method="post" id="offersForm">
+        <form asp-controller="SelectOffer" asp-action="SelectOffer" asp-route-id="@Model.BarbershopId" method="get" id="offersForm">
             <ul class="list-group list-group-flush mb-4 shadow-sm offer-list-group">
                 @foreach (var offer in Model.AllOffers)
                 {
@@ -82,7 +82,7 @@
                                     Направи промени
                                 </span>
                             </a>
-                            <a asp-controller="Offer" asp-action="Delete" asp-route-id="@offer.Id"
+                            <a asp-controller="Offer" asp-action="Delete" asp-route-id="@offer.Id" asp-route-barbershopId="@Model.BarbershopId"
                                class="text-nowrap ml-3">
                                 <span class="badge bg-danger text-dark p-2 offer-price">
                                     Премахни услугата

@@ -9,7 +9,7 @@
     <h1 class="text-center mb-5 text-warning">Преглед на избрани услуги и записване на час</h1>
     <hr class="bg-warning mb-5" style="height: 3px;">
 
-    <form asp-controller="Booking" asp-action="ConfirmBooking" method="post" id="bookingForm">
+    <form asp-controller="SelectOffer" asp-action="ConfirmSelectOffer" asp-route-id="@Model.BarbershopId" method="post" id="bookingForm">
         <div class="row">
             <div class="col-lg-7 mb-4 mb-lg-0">
                 <div class="card bg-dark text-light border-warning shadow-lg">
@@ -27,7 +27,7 @@
                                     </h5>
                                     <span class="badge badge-warning p-2">@offer.Price.ToString("F2") лв.</span>
 
-                                    <input type="hidden" name="selectedOfferIds" value="@offer.Id" />
+                                    <input type="hidden" name="SelectOffers" value="@offer.Id" />
                                 </li>
                             }
                         }

@@ -8,7 +8,7 @@ namespace BarberHub.Web.ViewModels.Offer
 {
     public class BarbershopAllOffersViewModel
     {
-        public string BarbershopId { get; set; } = null!;
+        public string? BarbershopId { get; set; }
 
         public IEnumerable<AllOffersViewModel> AllOffers { get; set; } = new List<AllOffersViewModel>();
     }
