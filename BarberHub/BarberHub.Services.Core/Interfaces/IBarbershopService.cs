@@ -20,6 +20,8 @@ namespace BarberHub.Data.Models.Interfaces
 
         Task<bool> HardDeleteAsync(string? id);
 
+        Task<BarbershopSearchViewModel> SearchBarbershopAsync(string? searchName, string? searchCity);
+
 
     }
 }

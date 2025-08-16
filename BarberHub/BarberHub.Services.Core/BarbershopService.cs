@@ -211,5 +211,33 @@ namespace BarberHub.Services.Core
             return barbershop;
         }
 
+        public async Task<BarbershopSearchViewModel> SearchBarbershopAsync(string? searchName, string? searchCity)
+        {
+            BarbershopSearchViewModel matchBarbershops = new BarbershopSearchViewModel();
+
+            matchBarbershops.SearchTerm = searchName;
+            matchBarbershops.City = searchCity;
+
+            matchBarbershops.Barbershops = await this.applicationDbContext
+                                                        .Barbershops
+                                                        .AsNoTracking()
+                                                        .Where(b => b.Name.Contains(searchName) ||
+                                                        b.City.Contains(searchCity))
+                                                        .Select(b => new AllBarbershopsIndexViewModel()
+                                                        {
+                                                            Id = b.Id.ToString(),
+                                                            Name = b.Name,
+                                                            Description = b.Description,
+                                                            ImageUrl = b.ImageUrl,
+                                                            City = b.City,
+                                                            Address = b.Address,
+                                                            OpenTime = b.OpenTime.Value.ToString("HH:mm") ?? NoWorkTime,
+                                                            CloseTime = b.CloseTime.Value.ToString("HH:mm") ?? NoWorkTime
+
+                                                        }).ToListAsync();
+
+
+            return matchBarbershops;
+        }
     }
 }

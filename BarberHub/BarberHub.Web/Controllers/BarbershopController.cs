@@ -207,5 +207,13 @@ namespace BarberHub.Web.Controllers
                 return this.RedirectToAction(nameof(All));
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string? name, string? city)
+        {
+            BarbershopSearchViewModel barbershops = await barbershopService.SearchBarbershopAsync(name, city);
+
+            return this.View(nameof(All), barbershops.Barbershops);
+        }
     }
 }
