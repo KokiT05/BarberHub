@@ -35,10 +35,10 @@ namespace Test.Service
             Barbershop shop = new Barbershop
             {
                 Id = Guid.NewGuid(),
-                Name = "Test Shop",
+                Name = "The Test Shop",
                 Description = "This is a test description",
                 PhoneNumber = "0888123456",
-                City = "Sofia",
+                City = "София",
                 Address = "Test Street 1",
                 OpenTime = new TimeOnly(9, 0),
                 CloseTime = new TimeOnly(18, 0)
@@ -54,7 +54,7 @@ namespace Test.Service
                 Name = "Test Shop",
                 Description = "This is a test description",
                 PhoneNumber = "0882348724",
-                City = "Test1",
+                City = "София",
                 Address = "Test Street 1",
                 OpenTime = new TimeOnly(9, 0),
                 CloseTime = new TimeOnly(18, 0)
@@ -70,8 +70,10 @@ namespace Test.Service
         [Test]
         public async Task GetAllBarbershopsAsync_ShouldReturnData()
         {
-            IEnumerable<AllBarbershopsIndexViewModel> result = await barbershopService.GetAllBarbershopsAsync();
-            Assert.That(result.Count(), Is.EqualTo(2));
+            BarbershopPeginationViewModel barbershopPegination = new BarbershopPeginationViewModel();
+
+            barbershopPegination = await barbershopService.GetAllBarbershopsAsync();
+            Assert.That(barbershopPegination.Barbershops.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -85,8 +87,9 @@ namespace Test.Service
 
             await this.applicationDbContext.SaveChangesAsync();
 
-            IEnumerable<AllBarbershopsIndexViewModel> result = await this.barbershopService.GetAllBarbershopsAsync();
-            Assert.That(result.Count(), Is.EqualTo(0));
+            BarbershopPeginationViewModel barbershopPegination = new BarbershopPeginationViewModel();
+            barbershopPegination = await this.barbershopService.GetAllBarbershopsAsync();
+            Assert.That(barbershopPegination.Barbershops.Count(), Is.EqualTo(0));
         }
 
         [Test]
@@ -216,6 +219,39 @@ namespace Test.Service
             Assert.That(result, Is.Not.True);
 
             Assert.That(this.applicationDbContext.Barbershops.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task SearchBarbershopAsyncByName_ShouldReturnCorrectResults()
+        {
+            string searchName = "The";
+            string searchCity = string.Empty;
+            BarbershopSearchViewModel barbershopSearch = await this.barbershopService.SearchBarbershopAsync(searchName, searchCity);
+
+            Assert.That(barbershopSearch.Barbershops.Count(), Is.EqualTo(1));
+            Assert.That(barbershopSearch.SearchName, Is.EqualTo(searchName));
+
+            foreach (AllBarbershopsIndexViewModel barbershop in barbershopSearch.Barbershops)
+            {
+                Assert.That(barbershop.Name.Contains(searchName));
+            }
+        }
+
+        [Test]
+        public async Task SearchBarbershopAsyncByCity_ShouldReturnCorrectResults()
+        {
+            string searchName = string.Empty;
+            string searchCity = "София";
+            BarbershopSearchViewModel barbershopSearch = await this.barbershopService.SearchBarbershopAsync(searchName, searchCity);
+
+            Assert.That(barbershopSearch.Barbershops.Count(), Is.EqualTo(2));
+            Assert.That(barbershopSearch.SearchName, Is.EqualTo(searchName));
+            Assert.That(barbershopSearch.City, Is.EqualTo(searchCity));
+
+            foreach (AllBarbershopsIndexViewModel barbershop in barbershopSearch.Barbershops)
+            {
+                Assert.That(barbershop.City.Contains(searchCity));
+            }
         }
 
 

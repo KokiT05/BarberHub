@@ -22,11 +22,17 @@ namespace BarberHub.Services.Core
             this.applicationDbContext = applicationDbContext;
         }
 
-        public async Task<IEnumerable<AllBarbershopsIndexViewModel>> GetAllBarbershopsAsync()
+        public async Task<BarbershopPeginationViewModel> GetAllBarbershopsAsync(int page = 1, int pageSize = 6)
         {
-            List<AllBarbershopsIndexViewModel> allBarbershops =
+            BarbershopPeginationViewModel barbershopPegination = new BarbershopPeginationViewModel();
+
+            barbershopPegination.TotalPages = await this.applicationDbContext.Barbershops.CountAsync();
+
+            barbershopPegination.Barbershops =
                                             await this.applicationDbContext.Barbershops
                                             .AsNoTracking()
+                                            .Skip((page - 1) * pageSize)
+                                            .Take(pageSize)
                                             .Select(b => new AllBarbershopsIndexViewModel()
                                             {
                                                 Id = b.Id.ToString(),
@@ -42,7 +48,9 @@ namespace BarberHub.Services.Core
                                             })
                                             .ToListAsync();
 
-            return allBarbershops;
+
+
+            return barbershopPegination;
 
         }
 
@@ -214,16 +222,36 @@ namespace BarberHub.Services.Core
         public async Task<BarbershopSearchViewModel> SearchBarbershopAsync(string? searchName, string? searchCity)
         {
             BarbershopSearchViewModel matchBarbershops = new BarbershopSearchViewModel();
-
-            matchBarbershops.SearchTerm = searchName;
+            matchBarbershops.SearchName = searchName;
             matchBarbershops.City = searchCity;
 
-            matchBarbershops.Barbershops = await this.applicationDbContext
-                                                        .Barbershops
-                                                        .AsNoTracking()
-                                                        .Where(b => b.Name.Contains(searchName) ||
-                                                        b.City.Contains(searchCity))
-                                                        .Select(b => new AllBarbershopsIndexViewModel()
+            bool isNameEmpty = string.IsNullOrEmpty(searchName);
+            bool isCityEmpty = string.IsNullOrEmpty(searchCity);
+
+            if (isNameEmpty && isCityEmpty)
+            {
+                return matchBarbershops;
+            }
+
+            IEnumerable<Barbershop> allBarbershops = await this.applicationDbContext
+                                                    .Barbershops
+                                                    .AsNoTracking()
+                                                    .ToListAsync();
+
+            if (!isNameEmpty && !isCityEmpty)
+            {
+                allBarbershops = allBarbershops.Where(b => b.Name.Contains(searchName) && b.City.Contains(searchCity));
+            }
+            if (!isNameEmpty)
+            {
+                allBarbershops = allBarbershops.Where(b => b.Name.Contains(searchName));
+            }
+            else if (!isCityEmpty)
+            {
+                allBarbershops = allBarbershops.Where(b => b.City.Contains(searchCity));
+            }
+
+            matchBarbershops.Barbershops = allBarbershops.Select(b => new AllBarbershopsIndexViewModel()
                                                         {
                                                             Id = b.Id.ToString(),
                                                             Name = b.Name,
@@ -234,7 +262,7 @@ namespace BarberHub.Services.Core
                                                             OpenTime = b.OpenTime.Value.ToString("HH:mm") ?? NoWorkTime,
                                                             CloseTime = b.CloseTime.Value.ToString("HH:mm") ?? NoWorkTime
 
-                                                        }).ToListAsync();
+                                                        });
 
 
             return matchBarbershops;

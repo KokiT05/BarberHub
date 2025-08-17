@@ -8,7 +8,7 @@ namespace BarberHub.Web.ViewModels.Barbershop
 {
     public class BarbershopSearchViewModel
     {
-        public string? SearchTerm { get; set; }
+        public string? SearchName { get; set; }
 
         public string? City { get; set; }
 

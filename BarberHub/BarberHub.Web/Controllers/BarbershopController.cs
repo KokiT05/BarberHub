@@ -4,6 +4,7 @@ using BarberHub.Services.Core;
 using BarberHub.Web.ViewModels.Barbershop;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing.Printing;
 
 namespace BarberHub.Web.Controllers
 {
@@ -17,12 +18,15 @@ namespace BarberHub.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page = 1, int pageSize = 6)
         {
-            IEnumerable<AllBarbershopsIndexViewModel> barbershops =
-                                                await this.barbershopService.GetAllBarbershopsAsync();
+            BarbershopPeginationViewModel barbershops =
+                                                await this.barbershopService.GetAllBarbershopsAsync(page, pageSize);
 
-            return this.View(barbershops);
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling(barbershops.TotalPages / (double)pageSize);
+
+            return this.View(barbershops.Barbershops);
         }
 
         [HttpGet]
@@ -212,6 +216,9 @@ namespace BarberHub.Web.Controllers
         public async Task<IActionResult> Search(string? name, string? city)
         {
             BarbershopSearchViewModel barbershops = await barbershopService.SearchBarbershopAsync(name, city);
+
+            ViewBag.SearchName = name;
+            ViewBag.SearchCity = city;
 
             return this.View(nameof(All), barbershops.Barbershops);
         }

@@ -4,7 +4,7 @@ namespace BarberHub.Data.Models.Interfaces
 {
     public interface IBarbershopService
     {
-        Task<IEnumerable<AllBarbershopsIndexViewModel>> GetAllBarbershopsAsync();
+        Task<BarbershopPeginationViewModel> GetAllBarbershopsAsync(int page = 1, int pageSize = 6);
 
         Task<DetailsBarbershopViewModel?> GetDetailsBarbershopAsync(string? id);
 

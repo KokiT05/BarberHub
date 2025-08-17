@@ -68,5 +68,26 @@
                 </div>
             }
         </div>
+
+        @if (ViewBag.TotalPages > 1)
+        {
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link"
+                               asp-controller="Barbershop"
+                               asp-action="All"
+                               asp-route-page="@i"
+                               asp-route-name="@ViewBag.SearchName"
+                               asp-route-city="@ViewBag.SearchCity">
+                                @i
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
     }
 </div>
